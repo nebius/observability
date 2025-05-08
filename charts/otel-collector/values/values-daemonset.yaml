@@ -1,0 +1,50 @@
+mode: daemonset
+
+image:
+  repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s
+
+extraEnvs:
+  - name: NEBIUS_O11Y_ACCESS_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: nebius-o11y-token
+        key: token
+  - name: PROJECT_ID
+    valueFrom:
+      configMapKeyRef:
+        name: nebius-otel-config
+        key: project-id
+  - name: OTLP_ENDPOINT
+    valueFrom:
+      configMapKeyRef:
+        name: nebius-otel-config
+        key: endpoint
+
+presets:
+  # enables the k8sattributesprocessor and adds it to the logs pipelines
+  kubernetesAttributes:
+    enabled: true
+    extractAllPodLabels: true
+    extractAllPodAnnotations: true
+  # enabled filelog receiver
+  logsCollection:
+    enabled: true
+    storeCheckpoints: true
+
+config:
+  processors:
+    batch:
+      send_batch_size: 500
+      send_batch_max_size: 750
+  exporters:
+    otlp/k8s-logs:
+      endpoint: "${env:OTLP_ENDPOINT}"
+      headers:
+        "Authorization": "${env:NEBIUS_O11Y_ACCESS_TOKEN}"
+        "project-id": "${env:PROJECT_ID}"
+  service:
+    pipelines:
+      logs:
+        exporters: [otlp/k8s-logs]
+      traces: null
+      metrics: null
