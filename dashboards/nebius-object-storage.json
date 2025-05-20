@@ -368,5 +368,31 @@
       }
     ]
   },
-  "annotations": {}
+  "annotations": {},
+  "links": [
+    {
+      "title": "Docs",
+      "type": "link",
+      "icon": "doc",
+      "tooltip": "",
+      "url": "https://docs.nebius.com/observability",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": false
+    },
+    {
+      "title": "GitHub",
+      "type": "link",
+      "icon": "external link",
+      "tooltip": "",
+      "url": "https://github.com/nebius/observability",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": false
+    }
+  ]
 }

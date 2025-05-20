@@ -14,6 +14,18 @@ var NebiusGPU = dashboard.NewDashboardBuilder("Nebius GPU").
 	Uid("nebius-gpu").
 	Description("Dashboard to visualize data from the NVIDIA Data Center GPU Manager (DCGM).").
 	Tags([]string{"Nebius", "Compute", "GPU"}).
+	Link(dashboard.NewDashboardLinkBuilder("Docs").
+		Type(dashboard.DashboardLinkTypeLink).
+		Url("https://docs.nebius.com/observability").
+		TargetBlank(true).
+		Icon("doc"),
+	).
+	Link(dashboard.NewDashboardLinkBuilder("GitHub").
+		Type(dashboard.DashboardLinkTypeLink).
+		Url("https://github.com/nebius/observability").
+		TargetBlank(true).
+		Icon("external link"),
+	).
 	WithVariable(
 		DatasourceVar,
 	).

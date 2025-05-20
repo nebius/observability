@@ -12,6 +12,18 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	Uid("nebius-disk-user-stats").
 	Description("Dashboard provides monitoring and visualization of disk performance metrics for Nebius Disks.").
 	Tags([]string{"Nebius", "Compute", "Disk"}).
+	Link(dashboard.NewDashboardLinkBuilder("Docs").
+		Type(dashboard.DashboardLinkTypeLink).
+		Url("https://docs.nebius.com/observability").
+		TargetBlank(true).
+		Icon("doc"),
+	).
+	Link(dashboard.NewDashboardLinkBuilder("GitHub").
+		Type(dashboard.DashboardLinkTypeLink).
+		Url("https://github.com/nebius/observability").
+		TargetBlank(true).
+		Icon("external link"),
+	).
 	WithVariable(
 		DatasourceVar,
 	).

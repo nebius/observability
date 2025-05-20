@@ -12,6 +12,18 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 	Uid("nebius-shared-filesystem").
 	Description("Dashboard provides an overview of the Nebius Shared Filesystems.").
 	Tags([]string{"Nebius", "NBS"}).
+	Link(dashboard.NewDashboardLinkBuilder("Docs").
+		Type(dashboard.DashboardLinkTypeLink).
+		Url("https://docs.nebius.com/observability").
+		TargetBlank(true).
+		Icon("doc"),
+	).
+	Link(dashboard.NewDashboardLinkBuilder("GitHub").
+		Type(dashboard.DashboardLinkTypeLink).
+		Url("https://github.com/nebius/observability").
+		TargetBlank(true).
+		Icon("external link"),
+	).
 	WithVariable(
 		DatasourceVar,
 	).

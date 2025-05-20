@@ -12,6 +12,18 @@ var NebiusObjectStorage = dashboard.NewDashboardBuilder("Nebius Object Storage")
 	Uid("nebius-object-storage").
 	Description("Dashboard provides an overview of the Nebius Object Storage. https://docs.nebius.com/object-storage").
 	Tags([]string{"Nebius", "Object Storage"}).
+	Link(dashboard.NewDashboardLinkBuilder("Docs").
+		Type(dashboard.DashboardLinkTypeLink).
+		Url("https://docs.nebius.com/observability").
+		TargetBlank(true).
+		Icon("doc"),
+	).
+	Link(dashboard.NewDashboardLinkBuilder("GitHub").
+		Type(dashboard.DashboardLinkTypeLink).
+		Url("https://github.com/nebius/observability").
+		TargetBlank(true).
+		Icon("external link"),
+	).
 	WithVariable(
 		DatasourceVar,
 	).
