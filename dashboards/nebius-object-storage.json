@@ -339,8 +339,8 @@
         "skipUrlSync": false,
         "query": "prometheus",
         "current": {
-          "text": "o11y-sandbox",
-          "value": "o11y-sandbox"
+          "text": "Nebius Services",
+          "value": "Nebius Services"
         },
         "multi": false,
         "allowCustomValue": false,

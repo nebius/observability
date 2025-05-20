@@ -13,24 +13,11 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	Description("Dashboard provides monitoring and visualization of disk performance metrics for Nebius Disks.").
 	Tags([]string{"Nebius", "Compute", "Disk"}).
 	WithVariable(
-		dashboard.NewDatasourceVariableBuilder("datasource").
-			Type("prometheus").
-			Current(dashboard.VariableOption{
-				Text: dashboard.StringOrArrayOfString{
-					String: New("o11y-sandbox"),
-				},
-				Value: dashboard.StringOrArrayOfString{
-					String: New("o11y-sandbox"),
-				},
-			}).
-			AllowCustomValue(false),
+		DatasourceVar,
 	).
 	WithVariable(
 		dashboard.NewQueryVariableBuilder("disk").
-			Datasource(dashboard.DataSourceRef{
-				Type: New("prometheus"),
-				Uid:  New("${datasource}"),
-			}).
+			Datasource(DatasourceRef).
 			Query(dashboard.StringOrMap{
 				String: New("label_values(disk)"),
 			}).
@@ -39,10 +26,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk read latency (quantiles)").
 		Description("Shows disk read latency quantiles in milliseconds.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`histogram_quantile(0.5, rate(disk_read_latency_bucket{disk="$disk"}[$__rate_interval]))`).
 			LegendFormat("p50").
@@ -81,10 +65,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk write latency (quantiles)").
 		Description("Shows disk write latency quantiles in milliseconds.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`histogram_quantile(0.5, rate(disk_write_latency_bucket{disk="$disk"}[$__rate_interval]))`).
 			LegendFormat("p50").
@@ -123,10 +104,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk read throttler latency (quantiles)").
 		Description("Shows disk read throttler latency quantiles in microseconds.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`histogram_quantile(0.5, rate(disk_read_throttler_delay_bucket{disk="$disk"}[$__rate_interval]))`).
 			LegendFormat("p50").
@@ -165,10 +143,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk write throttler latency (quantiles)").
 		Description("Shows disk write throttler latency quantiles in microseconds.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`histogram_quantile(0.5, rate(disk_write_throttler_delay_bucket{disk="$disk"}[$__rate_interval]))`).
 			LegendFormat("p50").
@@ -207,10 +182,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk read operations").
 		Description("Shows disk read operations per second and burst limit.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`rate(disk_read_ops{disk="$disk"}[$__rate_interval])`).
 			LegendFormat("Read").
@@ -234,10 +206,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk write operations").
 		Description("Shows disk write operations per second and burst limit.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`rate(disk_write_ops{disk="$disk"}[$__rate_interval])`).
 			LegendFormat("Write").
@@ -261,10 +230,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk read bytes").
 		Description("Shows disk read bytes per second and burst limit.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`rate(disk_read_bytes{disk="$disk"}[$__rate_interval])`).
 			LegendFormat("Read").
@@ -288,10 +254,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk write bytes").
 		Description("Shows disk write bytes per second and burst limit.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`rate(disk_write_bytes{disk="$disk"}[$__rate_interval])`).
 			LegendFormat("Write").
@@ -315,10 +278,7 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 	WithPanel(timeseries.NewPanelBuilder().
 		Title("Disk used quota").
 		Description("Shows disk quota utilization percentage.").
-		Datasource(dashboard.DataSourceRef{
-			Type: New("prometheus"),
-			Uid:  New("${datasource}"),
-		}).
+		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`rate(disk_io_quota_utilization_percentage{disk="$disk"}[$__rate_interval])`).
 			LegendFormat("Quota").
