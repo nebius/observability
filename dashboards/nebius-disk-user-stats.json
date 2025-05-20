@@ -1,0 +1,629 @@
+{
+  "uid": "nebius-disk-user-stats",
+  "title": "Nebius Disk",
+  "description": "Dashboard provides monitoring and visualization of disk performance metrics for Nebius Disks.",
+  "tags": [
+    "Nebius",
+    "Compute",
+    "Disk"
+  ],
+  "timezone": "browser",
+  "editable": false,
+  "graphTooltip": 0,
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "fiscalYearStartMonth": 0,
+  "refresh": "1m",
+  "schemaVersion": 41,
+  "panels": [
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p50",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.75, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p75",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.90, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p90",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p95",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p99",
+          "refId": ""
+        }
+      ],
+      "title": "Disk read latency (quantiles)",
+      "description": "Shows disk read latency quantiles in milliseconds.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p50",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.75, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p75",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.90, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p90",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p95",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p99",
+          "refId": ""
+        }
+      ],
+      "title": "Disk write latency (quantiles)",
+      "description": "Shows disk write latency quantiles in milliseconds.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p50",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.75, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p75",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.90, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p90",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p95",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p99",
+          "refId": ""
+        }
+      ],
+      "title": "Disk read throttler latency (quantiles)",
+      "description": "Shows disk read throttler latency quantiles in microseconds.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "µs",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p50",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.75, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p75",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.90, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p90",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p95",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p99",
+          "refId": ""
+        }
+      ],
+      "title": "Disk write throttler latency (quantiles)",
+      "description": "Shows disk write throttler latency quantiles in microseconds.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "µs",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(disk_read_ops{disk=\"$disk\"}[$__rate_interval])",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read",
+          "refId": ""
+        },
+        {
+          "expr": "disk_read_ops_burst{disk=\"$disk\"}",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read Burst",
+          "refId": ""
+        }
+      ],
+      "title": "Disk read operations",
+      "description": "Shows disk read operations per second and burst limit.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "iops",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(disk_write_ops{disk=\"$disk\"}[$__rate_interval])",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write",
+          "refId": ""
+        },
+        {
+          "expr": "disk_write_ops_burst{disk=\"$disk\"}",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write Burst",
+          "refId": ""
+        }
+      ],
+      "title": "Disk write operations",
+      "description": "Shows disk write operations per second and burst limit.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "iops",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(disk_read_bytes{disk=\"$disk\"}[$__rate_interval])",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read",
+          "refId": ""
+        },
+        {
+          "expr": "disk_read_bytes_burst{disk=\"$disk\"}",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read Burst",
+          "refId": ""
+        }
+      ],
+      "title": "Disk read bytes",
+      "description": "Shows disk read bytes per second and burst limit.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 27
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "binBps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(disk_write_bytes{disk=\"$disk\"}[$__rate_interval])",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write",
+          "refId": ""
+        },
+        {
+          "expr": "disk_write_bytes_burst{disk=\"$disk\"}",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write Burst",
+          "refId": ""
+        }
+      ],
+      "title": "Disk write bytes",
+      "description": "Shows disk write bytes per second and burst limit.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "binBps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(disk_io_quota_utilization_percentage{disk=\"$disk\"}[$__rate_interval])",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Quota",
+          "refId": ""
+        },
+        {
+          "expr": "disk_io_quota_utilization_percentage_burst{disk=\"$disk\"}",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Quota Burst",
+          "refId": ""
+        }
+      ],
+      "title": "Disk used quota",
+      "description": "Shows disk quota utilization percentage.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 36
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "type": "datasource",
+        "name": "datasource",
+        "skipUrlSync": false,
+        "query": "prometheus",
+        "current": {
+          "text": "o11y-sandbox",
+          "value": "o11y-sandbox"
+        },
+        "multi": false,
+        "allowCustomValue": false,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      },
+      {
+        "type": "query",
+        "name": "disk",
+        "skipUrlSync": false,
+        "query": "label_values(disk)",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "multi": false,
+        "allowCustomValue": false,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      }
+    ]
+  },
+  "annotations": {}
+}

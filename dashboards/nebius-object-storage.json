@@ -1,0 +1,372 @@
+{
+  "uid": "nebius-object-storage",
+  "title": "Nebius Object Storage",
+  "description": "Dashboard provides an overview of the Nebius Object Storage. https://docs.nebius.com/object-storage",
+  "tags": [
+    "Nebius",
+    "Object Storage"
+  ],
+  "timezone": "browser",
+  "editable": false,
+  "graphTooltip": 0,
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "fiscalYearStartMonth": 0,
+  "refresh": "1m",
+  "schemaVersion": 41,
+  "panels": [
+    {
+      "type": "row",
+      "collapsed": false,
+      "title": "Requests for $bucket",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 0,
+      "panels": [],
+      "repeat": "bucket"
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(handler) (rate(request_rate{bucket=\"$bucket\", operation_type=\"read\"}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "{{handler}}",
+          "refId": ""
+        }
+      ],
+      "title": "Read requests",
+      "description": "Number of requests made to retrieve object contents from storage. Measured in requests per second.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(handler) (rate(request_rate{bucket=\"$bucket\", operation_type=\"mutate\"}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "{{handler}}",
+          "refId": ""
+        }
+      ],
+      "title": "Modify requests",
+      "description": "Number of requests made to upload objects or modify object contents. Measured in requests per second.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(http_bytes_sent{bucket=\"$bucket\"}[$__rate_interval])) OR vector(0)",
+          "legendFormat": "Download",
+          "refId": ""
+        },
+        {
+          "expr": "sum(rate(http_bytes_received{bucket=\"$bucket\"}[$__rate_interval])) OR vector(0)",
+          "legendFormat": "Upload",
+          "refId": ""
+        }
+      ],
+      "title": "Traffic",
+      "description": "Amount of data transferred to and from storage. Measured in bytes per second.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "binBps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(handler, http_code, api_error_code) (increase(http_errors_total{bucket=\"$bucket\"}[5m]))",
+          "legendFormat": "{{handler}}:{{http_code}}:{{api_error_code}}",
+          "refId": ""
+        }
+      ],
+      "title": "API error codes",
+      "description": "Number of errors when accessing our API. Measured in errors per 5 minutes.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "row",
+      "collapsed": false,
+      "title": "Objects statistics",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 0,
+      "panels": []
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(bucket) (max by(bucket, counter) (last_over_time(buckets_stat_quantity{bucket=~\"$bucket\", counter=\"simple_objects\"}[1m])))",
+          "legendFormat": "{{bucket}} simple objects",
+          "refId": ""
+        },
+        {
+          "expr": "sum by(bucket) (max by(bucket, counter) (last_over_time(buckets_stat_quantity{bucket=~\"$bucket\", counter=\"multipart_objects\"}[1m])))",
+          "legendFormat": "{{bucket}} multipart objects",
+          "refId": ""
+        }
+      ],
+      "title": "Object counts",
+      "description": "Number of objects in storage. Single and multipart objects are counted separately.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(bucket) (max by(bucket, counter) (last_over_time(buckets_stat_size{bucket=~\"$bucket\", counter=\"simple_objects\"}[1m])))",
+          "legendFormat": "{{bucket}} simple objects",
+          "refId": ""
+        },
+        {
+          "expr": "sum by(bucket) (max by(bucket, counter) (last_over_time(buckets_stat_size{bucket=~\"$bucket\", counter=\"multipart_objects\"}[1m])))",
+          "legendFormat": "{{bucket}} multipart objects",
+          "refId": ""
+        }
+      ],
+      "title": "Space by object type",
+      "description": "Amount of storage used for objects of different types: single or multipart.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(bucket) (max by(bucket, counter) (last_over_time(buckets_stat_size{bucket=~\"$bucket\"}[1m])))",
+          "legendFormat": "{{bucket}}",
+          "refId": ""
+        }
+      ],
+      "title": "Total bucket size",
+      "description": "Storage space used by all objects in a bucket.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "type": "datasource",
+        "name": "datasource",
+        "skipUrlSync": false,
+        "query": "prometheus",
+        "current": {
+          "text": "o11y-sandbox",
+          "value": "o11y-sandbox"
+        },
+        "multi": false,
+        "allowCustomValue": false,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      },
+      {
+        "type": "query",
+        "name": "bucket",
+        "skipUrlSync": false,
+        "query": "label_values(buckets_stat_quantity, bucket)",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "multi": true,
+        "allowCustomValue": false,
+        "includeAll": true,
+        "allValue": ".*",
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      }
+    ]
+  },
+  "annotations": {}
+}
