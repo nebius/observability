@@ -1,0 +1,633 @@
+{
+  "uid": "nebius-shared-filesystem",
+  "title": "Nebius Shared Filesystem",
+  "description": "Dashboard provides an overview of the Nebius Shared Filesystems.",
+  "tags": [
+    "Nebius",
+    "NBS"
+  ],
+  "timezone": "browser",
+  "editable": false,
+  "graphTooltip": 0,
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "fiscalYearStartMonth": 0,
+  "refresh": "1m",
+  "schemaVersion": 41,
+  "panels": [
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p50",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.75, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p75",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.90, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p90",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p95",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p99",
+          "refId": ""
+        }
+      ],
+      "title": "FS read latency (quantiles)",
+      "description": "Percentiles of the filesystem write requests latency. Measured in milliseconds.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.1, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p10",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.5, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p50",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.75, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p75",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.90, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p90",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p95",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p99",
+          "refId": ""
+        }
+      ],
+      "title": "FS write latency (quantiles)",
+      "description": "Percentiles of the filesystem read requests latency. Measured in milliseconds.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(filestore_read_ops{filestore=\"$filestore\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read",
+          "refId": ""
+        },
+        {
+          "expr": "sum(filestore_read_ops_burst{filestore=\"$filestore\"})",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read Burst",
+          "refId": ""
+        }
+      ],
+      "title": "FS read operations",
+      "description": "Average read IOPS. Measured in operations per second.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "iops",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(filestore_write_ops{filestore=\"$filestore\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write",
+          "refId": ""
+        },
+        {
+          "expr": "sum(filestore_write_ops_burst{filestore=\"$filestore\"})",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write Burst",
+          "refId": ""
+        }
+      ],
+      "title": "FS write operations",
+      "description": "Average write IOPS. Measured in operations per second.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "iops",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(filestore_read_bytes{filestore=\"$filestore\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read",
+          "refId": ""
+        },
+        {
+          "expr": "sum(filestore_read_bytes_burst{filestore=\"$filestore\"})",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read Burst",
+          "refId": ""
+        }
+      ],
+      "title": "FS read bytes",
+      "description": "Average read throughput. Measured in bytes per second.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "binBps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(filestore_write_bytes{filestore=\"$filestore\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write",
+          "refId": ""
+        },
+        {
+          "expr": "sum(filestore_write_bytes_burst{filestore=\"$filestore\"})",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write Burst",
+          "refId": ""
+        }
+      ],
+      "title": "FS write bytes",
+      "description": "Average write throughput. Measured in bytes per second.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "binBps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(filestore_read_errors{filestore=\"$filestore\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Read",
+          "refId": ""
+        }
+      ],
+      "title": "FS read errors",
+      "description": "Number of times a filesystem fails to read data.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 27
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(filestore_write_errors{filestore=\"$filestore\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Write",
+          "refId": ""
+        }
+      ],
+      "title": "FS write errors",
+      "description": "Number of times a filesystem fails to write data.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(filestore_index_ops{filestore=\"$filestore\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Ops",
+          "refId": ""
+        }
+      ],
+      "title": "FS index operations",
+      "description": "Number of indexing actions (reads, writes, updates and deletions) performed in a time period.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 36
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(filestore_index_errors{filestore=\"$filestore\"}[$__rate_interval]))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "Errors",
+          "refId": ""
+        }
+      ],
+      "title": "FS index errors",
+      "description": "Number of failed indexing operations in a time period.",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 36
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "type": "datasource",
+        "name": "datasource",
+        "skipUrlSync": false,
+        "query": "prometheus",
+        "current": {
+          "text": "Nebius Services",
+          "value": "Nebius Services"
+        },
+        "multi": false,
+        "allowCustomValue": false,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      },
+      {
+        "type": "query",
+        "name": "filestore",
+        "skipUrlSync": false,
+        "query": "label_values(filestore)",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "multi": false,
+        "allowCustomValue": false,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      }
+    ]
+  },
+  "annotations": {},
+  "links": [
+    {
+      "title": "Docs",
+      "type": "link",
+      "icon": "doc",
+      "tooltip": "",
+      "url": "https://docs.nebius.com/observability",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": false
+    },
+    {
+      "title": "GitHub",
+      "type": "link",
+      "icon": "external link",
+      "tooltip": "",
+      "url": "https://github.com/nebius/observability",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": false
+    }
+  ]
+}
