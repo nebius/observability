@@ -87,6 +87,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -169,6 +173,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -223,6 +231,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -277,6 +289,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -331,6 +347,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -385,6 +405,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -419,6 +443,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -453,6 +481,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -465,7 +497,7 @@
           "expr": "sum(rate(filestore_index_ops{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Read",
+          "legendFormat": "Ops",
           "refId": ""
         }
       ],
@@ -487,6 +519,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -499,7 +535,7 @@
           "expr": "sum(rate(filestore_index_errors{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Read",
+          "legendFormat": "Errors",
           "refId": ""
         }
       ],
@@ -521,6 +557,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []

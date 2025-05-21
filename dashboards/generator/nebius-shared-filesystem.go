@@ -65,6 +65,8 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 			Range(),
 		).
 		Unit(units.Milliseconds).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -109,6 +111,8 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 			Range(),
 		).
 		Unit(units.Milliseconds).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -133,6 +137,8 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 			Range(),
 		).
 		Unit(units.IOOpsPerSecond).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -157,6 +163,8 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 			Range(),
 		).
 		Unit(units.IOOpsPerSecond).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -181,6 +189,8 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 			Range(),
 		).
 		Unit(units.BytesPerSecondIEC).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -205,6 +215,8 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 			Range(),
 		).
 		Unit(units.BytesPerSecondIEC).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -223,6 +235,8 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 			LegendFormat("Read").
 			Range(),
 		).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Thresholds(dashboard.NewThresholdsConfigBuilder()),
 	).
 	WithPanel(timeseries.NewPanelBuilder().
@@ -234,6 +248,8 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 			LegendFormat("Write").
 			Range(),
 		).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Thresholds(dashboard.NewThresholdsConfigBuilder()),
 	).
 	WithPanel(timeseries.NewPanelBuilder().
@@ -242,9 +258,11 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`sum(rate(filestore_index_ops{filestore="$filestore"}[$__rate_interval]))`).
-			LegendFormat("Read").
+			LegendFormat("Ops").
 			Range(),
 		).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Thresholds(dashboard.NewThresholdsConfigBuilder()),
 	).
 	WithPanel(timeseries.NewPanelBuilder().
@@ -253,9 +271,11 @@ var NebiusSharedFilesystem = dashboard.NewDashboardBuilder("Nebius Shared Filesy
 		Datasource(DatasourceRef).
 		WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`sum(rate(filestore_index_errors{filestore="$filestore"}[$__rate_interval]))`).
-			LegendFormat("Read").
+			LegendFormat("Errors").
 			Range(),
 		).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Thresholds(dashboard.NewThresholdsConfigBuilder()),
 	).
 	Time("now-24h", "now").

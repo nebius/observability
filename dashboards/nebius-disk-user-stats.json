@@ -88,6 +88,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -163,6 +167,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -238,6 +246,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -313,6 +325,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -367,6 +383,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -421,6 +441,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -475,6 +499,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -529,6 +557,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -583,6 +615,10 @@
           "thresholds": {
             "mode": "",
             "steps": []
+          },
+          "custom": {
+            "lineWidth": 1.5,
+            "axisSoftMin": 0
           }
         },
         "overrides": []

@@ -65,6 +65,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.Milliseconds).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -104,6 +106,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.Milliseconds).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -143,6 +147,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.Microseconds).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -182,6 +188,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.Microseconds).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -206,6 +214,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.IOOpsPerSecond).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -230,6 +240,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.IOOpsPerSecond).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -254,6 +266,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.BytesPerSecondIEC).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -278,6 +292,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.BytesPerSecondIEC).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
@@ -302,6 +318,8 @@ var NebiusDiskUserStats = dashboard.NewDashboardBuilder("Nebius Disk").
 			Range(),
 		).
 		Unit(units.Percent).
+		AxisSoftMin(0).
+		LineWidth(1.5).
 		Tooltip(common.NewVizTooltipOptionsBuilder().
 			Mode(common.TooltipDisplayModeMulti).
 			Sort(common.SortOrderNone),
