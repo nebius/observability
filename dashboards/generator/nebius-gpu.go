@@ -172,17 +172,17 @@ var NebiusGPU = dashboard.NewDashboardBuilder("Nebius GPU").
 			Range(),
 		).
 		WithTarget(prometheus.NewDataqueryBuilder().
-			Expr(`node_memory_Buffers_bytes{instance="$hostname"}`).
+			Expr(`node_memory_Buffers_bytes{instance_id="$hostname"}`).
 			LegendFormat("Buffered").
 			Range(),
 		).
 		WithTarget(prometheus.NewDataqueryBuilder().
-			Expr(`node_memory_Cached_bytes{instance="$hostname"}`).
+			Expr(`node_memory_Cached_bytes{instance_id="$hostname"}`).
 			LegendFormat("Cached").
 			Range(),
 		).
 		WithTarget(prometheus.NewDataqueryBuilder().
-			Expr(`node_memory_MemFree_bytes{instance="$hostname"}`).
+			Expr(`node_memory_MemFree_bytes{instance_id="$hostname"}`).
 			LegendFormat("Free").
 			Range(),
 		).
