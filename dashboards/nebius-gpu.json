@@ -263,21 +263,21 @@
           "refId": ""
         },
         {
-          "expr": "node_memory_Buffers_bytes{instance=\"$hostname\"}",
+          "expr": "node_memory_Buffers_bytes{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
           "legendFormat": "Buffered",
           "refId": ""
         },
         {
-          "expr": "node_memory_Cached_bytes{instance=\"$hostname\"}",
+          "expr": "node_memory_Cached_bytes{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
           "legendFormat": "Cached",
           "refId": ""
         },
         {
-          "expr": "node_memory_MemFree_bytes{instance=\"$hostname\"}",
+          "expr": "node_memory_MemFree_bytes{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
           "legendFormat": "Free",
