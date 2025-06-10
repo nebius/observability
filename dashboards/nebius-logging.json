@@ -40,7 +40,7 @@
         }
       ],
       "title": "Ingest requests",
-      "description": "",
+      "description": "Number of successful log ingestion requests per second",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -52,6 +52,18 @@
         "x": 0,
         "y": 1
       },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "reqps",
@@ -61,7 +73,8 @@
           },
           "custom": {
             "fillOpacity": 5,
-            "showPoints": "never"
+            "showPoints": "never",
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -71,13 +84,13 @@
       "type": "timeseries",
       "targets": [
         {
-          "expr": "sum by(status) (rate(logging_ingest_requests_total{status!=\"ok\"}[$__rate_interval])) OR on() vector(0)",
+          "expr": "sum by(status) (rate(logging_ingest_requests_total{status!=\"ok\"}[$__rate_interval]))",
           "legendFormat": "{{status}}",
           "refId": ""
         }
       ],
       "title": "Ingest requests errors",
-      "description": "",
+      "description": "Number of failed log ingestion requests per second, by status code",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -89,6 +102,18 @@
         "x": 12,
         "y": 1
       },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "reqps",
@@ -98,7 +123,8 @@
           },
           "custom": {
             "fillOpacity": 5,
-            "showPoints": "never"
+            "showPoints": "never",
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -144,7 +170,7 @@
         }
       ],
       "title": "Ingest requests duration",
-      "description": "",
+      "description": "Request processing time quantiles for log ingestion operations",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -156,6 +182,18 @@
         "x": 0,
         "y": 9
       },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "s",
@@ -165,7 +203,8 @@
           },
           "custom": {
             "fillOpacity": 5,
-            "showPoints": "never"
+            "showPoints": "never",
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -211,7 +250,7 @@
         }
       ],
       "title": "Logs save lag",
-      "description": "",
+      "description": "Time delay between receiving a log and saving it to storage, shown as quantiles",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -223,6 +262,18 @@
         "x": 12,
         "y": 9
       },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "s",
@@ -232,7 +283,8 @@
           },
           "custom": {
             "fillOpacity": 5,
-            "showPoints": "never"
+            "showPoints": "never",
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -243,12 +295,12 @@
       "targets": [
         {
           "expr": "sum(rate(logging_ingest_logs_total{}[$__rate_interval])) OR on() vector(0)",
-          "legendFormat": "logs",
+          "legendFormat": "lines",
           "refId": ""
         }
       ],
       "title": "Ingest logs",
-      "description": "",
+      "description": "Number of log lines ingested per second",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -260,6 +312,18 @@
         "x": 0,
         "y": 17
       },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "short",
@@ -269,7 +333,8 @@
           },
           "custom": {
             "fillOpacity": 5,
-            "showPoints": "never"
+            "showPoints": "never",
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -280,12 +345,12 @@
       "targets": [
         {
           "expr": "sum(rate(logging_ingest_logs_bytes_total{}[$__rate_interval])) OR on() vector(0)",
-          "legendFormat": "logs",
+          "legendFormat": "data",
           "refId": ""
         }
       ],
       "title": "Ingest bytes",
-      "description": "",
+      "description": "Volume of log data ingested per second in bytes",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -297,6 +362,18 @@
         "x": 12,
         "y": 17
       },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "binBps",
@@ -306,7 +383,8 @@
           },
           "custom": {
             "fillOpacity": 5,
-            "showPoints": "never"
+            "showPoints": "never",
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -335,7 +413,7 @@
         }
       ],
       "title": "Read requests",
-      "description": "",
+      "description": "Number of successful log read/query requests per second",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -347,6 +425,18 @@
         "x": 0,
         "y": 26
       },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "reqps",
@@ -356,7 +446,8 @@
           },
           "custom": {
             "fillOpacity": 5,
-            "showPoints": "never"
+            "showPoints": "never",
+            "axisSoftMin": 0
           }
         },
         "overrides": []
@@ -366,13 +457,13 @@
       "type": "timeseries",
       "targets": [
         {
-          "expr": "sum by(status) (rate(logging_read_requests_total{status!=\"ok\"}[$__rate_interval])) OR on() vector(0)",
+          "expr": "sum by(status) (rate(logging_read_requests_total{status!=\"ok\"}[$__rate_interval]))",
           "legendFormat": "{{status}}",
           "refId": ""
         }
       ],
       "title": "Read requests errors",
-      "description": "",
+      "description": "Number of failed log read/query requests per second, by status code",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -384,6 +475,18 @@
         "x": 12,
         "y": 26
       },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "reqps",
@@ -393,7 +496,8 @@
           },
           "custom": {
             "fillOpacity": 5,
-            "showPoints": "never"
+            "showPoints": "never",
+            "axisSoftMin": 0
           }
         },
         "overrides": []
