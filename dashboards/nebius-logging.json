@@ -1,0 +1,450 @@
+{
+  "uid": "nebius-logging",
+  "title": "Nebius Logging",
+  "description": "Dashboard provides an overview of the Nebius Logging. https://docs.nebius.com/observability/logging",
+  "tags": [
+    "Nebius",
+    "Logging"
+  ],
+  "timezone": "browser",
+  "editable": false,
+  "graphTooltip": 0,
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "fiscalYearStartMonth": 0,
+  "refresh": "1m",
+  "schemaVersion": 41,
+  "panels": [
+    {
+      "type": "row",
+      "collapsed": false,
+      "title": "Ingest",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 0,
+      "panels": []
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(logging_ingest_requests_total{status=\"ok\"}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "requests",
+          "refId": ""
+        }
+      ],
+      "title": "Ingest requests",
+      "description": "",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(status) (rate(logging_ingest_requests_total{status!=\"ok\"}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "{{status}}",
+          "refId": ""
+        }
+      ],
+      "title": "Ingest requests errors",
+      "description": "",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, sum by(le)(rate(logging_ingest_duration_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p50",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.75, sum by(le)(rate(logging_ingest_duration_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p75",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.90, sum by(le)(rate(logging_ingest_duration_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p90",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum by(le)(rate(logging_ingest_duration_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p95",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum by(le)(rate(logging_ingest_duration_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p99",
+          "refId": ""
+        }
+      ],
+      "title": "Ingest requests duration",
+      "description": "",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, sum by(le)(rate(logging_storage_save_lag_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p50",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.75, sum by(le)(rate(logging_storage_save_lag_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p75",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.90, sum by(le)(rate(logging_storage_save_lag_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p90",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum by(le)(rate(logging_storage_save_lag_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p95",
+          "refId": ""
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum by(le)(rate(logging_storage_save_lag_seconds_bucket{}[$__rate_interval])))",
+          "instant": false,
+          "range": true,
+          "legendFormat": "p99",
+          "refId": ""
+        }
+      ],
+      "title": "Logs save lag",
+      "description": "",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(logging_ingest_logs_total{}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "logs",
+          "refId": ""
+        }
+      ],
+      "title": "Ingest logs",
+      "description": "",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(logging_ingest_logs_bytes_total{}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "logs",
+          "refId": ""
+        }
+      ],
+      "title": "Ingest bytes",
+      "description": "",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "binBps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "row",
+      "collapsed": false,
+      "title": "Read",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 0,
+      "panels": []
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(logging_read_requests_total{status=\"ok\"}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "requests",
+          "refId": ""
+        }
+      ],
+      "title": "Read requests",
+      "description": "",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(status) (rate(logging_read_requests_total{status!=\"ok\"}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "{{status}}",
+          "refId": ""
+        }
+      ],
+      "title": "Read requests errors",
+      "description": "",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "type": "datasource",
+        "name": "datasource",
+        "skipUrlSync": false,
+        "query": "prometheus",
+        "current": {
+          "text": "Nebius Services",
+          "value": "Nebius Services"
+        },
+        "multi": false,
+        "allowCustomValue": false,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      }
+    ]
+  },
+  "annotations": {},
+  "links": [
+    {
+      "title": "Docs",
+      "type": "link",
+      "icon": "doc",
+      "tooltip": "",
+      "url": "https://docs.nebius.com/observability",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": false
+    },
+    {
+      "title": "GitHub",
+      "type": "link",
+      "icon": "external link",
+      "tooltip": "",
+      "url": "https://github.com/nebius/observability",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": false
+    }
+  ]
+}
