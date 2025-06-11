@@ -162,7 +162,7 @@ func addQuantileTargets(panel *timeseries.PanelBuilder, metricName string) *time
 	}
 
 	for _, q := range quantiles {
-		panel.WithTarget(prometheus.NewDataqueryBuilder().
+		panel = panel.WithTarget(prometheus.NewDataqueryBuilder().
 			Expr(`histogram_quantile(` + q.value + `, sum by(le)(rate(` + metricName + `{}[$__rate_interval])))`).
 			LegendFormat(q.legend).
 			Range(),
