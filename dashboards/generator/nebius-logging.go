@@ -39,7 +39,8 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 		createBasePanel(
 			"Ingest requests",
 			"Number of successful log ingestion requests per second",
-			units.RequestsPerSecond).
+			units.RequestsPerSecond,
+		).
 			WithTarget(prometheus.NewDataqueryBuilder().
 				Expr(`sum(rate(logging_ingest_requests_total{status="ok"}[$__rate_interval])) OR on() vector(0)`).
 				LegendFormat("requests"),
@@ -49,7 +50,8 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 		createBasePanel(
 			"Ingest requests errors",
 			"Number of failed log ingestion requests per second, by status code",
-			units.RequestsPerSecond).
+			units.RequestsPerSecond,
+		).
 			WithTarget(prometheus.NewDataqueryBuilder().
 				Expr(`sum by(status) (rate(logging_ingest_requests_total{status!="ok"}[$__rate_interval]))`).
 				LegendFormat("{{status}}"),
@@ -60,7 +62,8 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 			createBasePanel(
 				"Ingest requests duration",
 				"Request processing time quantiles for log ingestion operations",
-				units.Seconds),
+				units.Seconds,
+			),
 			"logging_ingest_duration_seconds_bucket",
 		),
 	).
@@ -69,7 +72,8 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 			createBasePanel(
 				"Logs save lag",
 				"Time delay between receiving a log and saving it to storage, shown as quantiles",
-				units.Seconds),
+				units.Seconds,
+			),
 			"logging_storage_save_lag_seconds_bucket",
 		),
 	).
@@ -77,7 +81,8 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 		createBasePanel(
 			"Ingest logs",
 			"Number of log lines ingested per second",
-			units.Short).
+			units.Short,
+		).
 			WithTarget(prometheus.NewDataqueryBuilder().
 				Expr(`sum(rate(logging_ingest_logs_total{}[$__rate_interval])) OR on() vector(0)`).
 				LegendFormat("lines"),
@@ -87,7 +92,8 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 		createBasePanel(
 			"Ingest bytes",
 			"Volume of log data ingested per second in bytes",
-			units.BytesPerSecondIEC).
+			units.BytesPerSecondIEC,
+		).
 			WithTarget(prometheus.NewDataqueryBuilder().
 				Expr(`sum(rate(logging_ingest_logs_bytes_total{}[$__rate_interval])) OR on() vector(0)`).
 				LegendFormat("data"),
@@ -100,7 +106,8 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 		createBasePanel(
 			"Read requests",
 			"Number of successful log read/query requests per second",
-			units.RequestsPerSecond).
+			units.RequestsPerSecond,
+		).
 			WithTarget(prometheus.NewDataqueryBuilder().
 				Expr(`sum(rate(logging_read_requests_total{status="ok"}[$__rate_interval])) OR on() vector(0)`).
 				LegendFormat("requests"),
@@ -110,7 +117,8 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 		createBasePanel(
 			"Read requests errors",
 			"Number of failed log read/query requests per second, by status code",
-			units.RequestsPerSecond).
+			units.RequestsPerSecond,
+		).
 			WithTarget(prometheus.NewDataqueryBuilder().
 				Expr(`sum by(status) (rate(logging_read_requests_total{status!="ok"}[$__rate_interval]))`).
 				LegendFormat("{{status}}"),
