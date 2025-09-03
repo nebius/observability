@@ -1,0 +1,234 @@
+{
+  "uid": "nebius-mk8s-logs",
+  "title": "Nebius mk8s logs",
+  "description": "Overview of logs from Nebius Managed Kubernetes (mk8s) clusters. https://docs.nebius.com/observability/logging",
+  "tags": [
+    "Nebius",
+    "Logging",
+    "mk8s"
+  ],
+  "timezone": "browser",
+  "editable": false,
+  "graphTooltip": 0,
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "fiscalYearStartMonth": 0,
+  "refresh": "1m",
+  "schemaVersion": 41,
+  "panels": [
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(count_over_time({__bucket__=\"$bucket\", k8s_cluster_id=~\"$cluster\", k8s_namespace_name=~\"$namespace\"} |=\"$search\" [$__interval]))",
+          "legendFormat": "Logs",
+          "refId": ""
+        }
+      ],
+      "transparent": false,
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "maxDataPoints": 300,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "",
+          "sort": ""
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "custom": {
+            "drawStyle": "bars",
+            "axisPlacement": "auto"
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "logs",
+      "targets": [
+        {
+          "expr": "{__bucket__=\"$bucket\", k8s_cluster_id=~\"$cluster\", k8s_namespace_name=~\"$namespace\"} |=\"$search\"",
+          "maxLines": 100,
+          "refId": ""
+        }
+      ],
+      "transparent": false,
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 20,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "options": {
+        "showLabels": false,
+        "showCommonLabels": false,
+        "showTime": true,
+        "showLogContextToggle": false,
+        "wrapLogMessage": false,
+        "prettifyLogMessage": false,
+        "enableLogDetails": true,
+        "sortOrder": "",
+        "dedupStrategy": ""
+      }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "type": "datasource",
+        "name": "datasource",
+        "hide": 2,
+        "skipUrlSync": false,
+        "query": "loki",
+        "current": {
+          "text": "Nebius Logging",
+          "value": "Nebius Logging"
+        },
+        "multi": false,
+        "allowCustomValue": false,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      },
+      {
+        "type": "constant",
+        "name": "bucket",
+        "hide": 2,
+        "skipUrlSync": false,
+        "query": "default",
+        "multi": false,
+        "allowCustomValue": false,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      },
+      {
+        "type": "query",
+        "name": "cluster",
+        "skipUrlSync": false,
+        "query": "label_values({__bucket__=\"$bucket\"}, k8s_cluster_id)",
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "multi": true,
+        "allowCustomValue": false,
+        "includeAll": true,
+        "allValue": ".*",
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      },
+      {
+        "type": "query",
+        "name": "namespace",
+        "skipUrlSync": false,
+        "query": "label_values({__bucket__=\"$bucket\", k8s_cluster_id=~\"$cluster\"}, k8s_namespace_name)",
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "multi": true,
+        "allowCustomValue": false,
+        "includeAll": true,
+        "allValue": ".*",
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      },
+      {
+        "type": "query",
+        "name": "pod",
+        "skipUrlSync": false,
+        "query": "label_values({__bucket__=\"$bucket\", k8s_cluster_id=~\"$cluster\", k8s_namespace_name=~\"$namespace\"}, k8s_pod_name)",
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "multi": true,
+        "allowCustomValue": false,
+        "includeAll": true,
+        "allValue": ".*",
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      },
+      {
+        "type": "textbox",
+        "name": "search",
+        "label": "Log Search",
+        "skipUrlSync": false,
+        "multi": false,
+        "allowCustomValue": true,
+        "includeAll": false,
+        "auto": false,
+        "auto_min": "10s",
+        "auto_count": 30
+      }
+    ]
+  },
+  "annotations": {},
+  "links": [
+    {
+      "title": "Docs",
+      "type": "link",
+      "icon": "doc",
+      "tooltip": "",
+      "url": "https://docs.nebius.com/observability",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": false
+    },
+    {
+      "title": "GitHub",
+      "type": "link",
+      "icon": "external link",
+      "tooltip": "",
+      "url": "https://github.com/nebius/observability",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": false
+    },
+    {
+      "title": "View in Explore",
+      "type": "link",
+      "icon": "link",
+      "tooltip": "",
+      "url": "/explore?orgId=1\u0026left=[\"now-1h\",\"now\",\"Loki\",{\"expr\":\"{__bucket__=\\\"$bucket\\\", k8s_cluster_id=~\\\"$cluster\\\", k8s_namespace_name=~\\\"$namespace\\\"} |=\\\"$search\\\"\"},{\"ui\":[true,true,true,\"none\"]}]",
+      "tags": [],
+      "asDropdown": false,
+      "targetBlank": true,
+      "includeVars": false,
+      "keepTime": true
+    }
+  ]
+}

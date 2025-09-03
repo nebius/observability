@@ -23,6 +23,7 @@ func main() {
 		NebiusObjectStorage,
 		NebiusSharedFilesystem,
 		NebiusLogging,
+		NebiusMk8sLogs,
 	} {
 		d, err := b.Build()
 		if err != nil {
