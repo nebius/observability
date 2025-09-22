@@ -165,6 +165,7 @@ func createBasePanel(title, description string, unit string) *timeseries.PanelBu
 		Legend(common.NewVizLegendOptionsBuilder().
 			ShowLegend(true),
 		).
+		AxisSoftMax(1).
 		AxisSoftMin(0).
 		Height(panelHeight).
 		Span(panelSpan)
