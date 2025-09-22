@@ -4,6 +4,7 @@ import (
 	"github.com/grafana/grafana-foundation-sdk/go/common"
 	"github.com/grafana/grafana-foundation-sdk/go/dashboard"
 	"github.com/grafana/grafana-foundation-sdk/go/prometheus"
+	"github.com/grafana/grafana-foundation-sdk/go/stat"
 	"github.com/grafana/grafana-foundation-sdk/go/timeseries"
 	"github.com/grafana/grafana-foundation-sdk/go/units"
 )
@@ -36,32 +37,74 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 		dashboard.NewRowBuilder("Ingest"),
 	).
 	WithPanel(
-		createBasePanel(
-			"Ingest requests",
-			"Number of successful log ingestion requests per second",
-			units.RequestsPerSecond,
+		createBaseStat(
+			"Total ingested logs",
+			"Total number of logs ingested over time",
+			units.Short,
 		).
 			WithTarget(prometheus.NewDataqueryBuilder().
-				Expr(`sum(rate(logging_ingest_requests_total{status="ok"}[$__rate_interval])) OR on() vector(0)`).
-				LegendFormat("requests"),
+				Expr(`sum(increase(logging_ingest_logs_total{}[$__interval]))`),
+			),
+	).
+	WithPanel(
+		createBaseStat(
+			"Total ingested bytes",
+			"Total size of ingested logs over time",
+			units.BytesSI,
+		).
+			WithTarget(prometheus.NewDataqueryBuilder().
+				Expr(`sum(increase(logging_ingest_logs_bytes_total{}[$__interval]))`),
 			),
 	).
 	WithPanel(
 		createBasePanel(
-			"Ingest requests errors",
-			"Number of failed log ingestion requests per second, by status code",
+			"Ingested logs per second",
+			"Number of logs ingested per second",
+			units.Short,
+		).
+			WithTarget(prometheus.NewDataqueryBuilder().
+				Expr(`sum(rate(logging_ingest_logs_total{}[$__rate_interval])) OR on() vector(0)`).
+				LegendFormat("logs"),
+			),
+	).
+	WithPanel(
+		createBasePanel(
+			"Ingest bytes per second",
+			"Volume of log data ingested per second in bytes",
+			units.BytesPerSecondSI,
+		).
+			WithTarget(prometheus.NewDataqueryBuilder().
+				Expr(`sum(rate(logging_ingest_logs_bytes_total{}[$__rate_interval])) OR on() vector(0)`).
+				LegendFormat("bytes"),
+			),
+	).
+	WithPanel(
+		createBasePanel(
+			"Ingest requests",
+			"Successful ingestion requests per second",
 			units.RequestsPerSecond,
 		).
 			WithTarget(prometheus.NewDataqueryBuilder().
-				Expr(`sum by(status) (rate(logging_ingest_requests_total{status!="ok"}[$__rate_interval]))`).
+				Expr(`sum(rate(logging_ingest_requests_total{status="ok"}[$__rate_interval])) OR on() vector(0)`).
+				LegendFormat("success"),
+			),
+	).
+	WithPanel(
+		createBasePanel(
+			"Failed ingest requests",
+			"Failed ingestion requests per second, by status",
+			units.RequestsPerSecond,
+		).
+			WithTarget(prometheus.NewDataqueryBuilder().
+				Expr(`sum by(status) (rate(logging_ingest_requests_total{status!="ok"}[$__rate_interval])) OR on() vector(0)`).
 				LegendFormat("{{status}}"),
 			),
 	).
 	WithPanel(
 		addQuantileTargets(
 			createBasePanel(
-				"Ingest requests duration",
-				"Request processing time quantiles for log ingestion operations",
+				"Ingest requests latency",
+				"Ingestion request latency (quantiles)",
 				units.Seconds,
 			),
 			"logging_ingest_duration_seconds_bucket",
@@ -70,57 +113,35 @@ var NebiusLogging = dashboard.NewDashboardBuilder("Nebius Logging").
 	WithPanel(
 		addQuantileTargets(
 			createBasePanel(
-				"Logs save lag",
+				"Log save latency",
 				"Time delay between receiving a log and saving it to storage, shown as quantiles",
 				units.Seconds,
 			),
 			"logging_storage_save_lag_seconds_bucket",
 		),
 	).
-	WithPanel(
-		createBasePanel(
-			"Ingest logs",
-			"Number of log lines ingested per second",
-			units.Short,
-		).
-			WithTarget(prometheus.NewDataqueryBuilder().
-				Expr(`sum(rate(logging_ingest_logs_total{}[$__rate_interval])) OR on() vector(0)`).
-				LegendFormat("lines"),
-			),
-	).
-	WithPanel(
-		createBasePanel(
-			"Ingest bytes",
-			"Volume of log data ingested per second in bytes",
-			units.BytesPerSecondIEC,
-		).
-			WithTarget(prometheus.NewDataqueryBuilder().
-				Expr(`sum(rate(logging_ingest_logs_bytes_total{}[$__rate_interval])) OR on() vector(0)`).
-				LegendFormat("data"),
-			),
-	).
 	WithRow(
 		dashboard.NewRowBuilder("Read"),
 	).
 	WithPanel(
 		createBasePanel(
-			"Read requests",
-			"Number of successful log read/query requests per second",
+			"Successful read requests",
+			"Successful log read requests per second",
 			units.RequestsPerSecond,
 		).
 			WithTarget(prometheus.NewDataqueryBuilder().
 				Expr(`sum(rate(logging_read_requests_total{status="ok"}[$__rate_interval])) OR on() vector(0)`).
-				LegendFormat("requests"),
+				LegendFormat("success"),
 			),
 	).
 	WithPanel(
 		createBasePanel(
-			"Read requests errors",
-			"Number of failed log read/query requests per second, by status code",
+			"Failed read requests",
+			"Failed read requests per second, by status",
 			units.RequestsPerSecond,
 		).
 			WithTarget(prometheus.NewDataqueryBuilder().
-				Expr(`sum by(status) (rate(logging_read_requests_total{status!="ok"}[$__rate_interval]))`).
+				Expr(`sum by(status) (rate(logging_read_requests_total{status!="ok"}[$__rate_interval])) OR on() vector(0)`).
 				LegendFormat("{{status}}"),
 			),
 	).
@@ -147,6 +168,21 @@ func createBasePanel(title, description string, unit string) *timeseries.PanelBu
 		AxisSoftMin(0).
 		Height(panelHeight).
 		Span(panelSpan)
+}
+
+func createBaseStat(title, description string, unit string) *stat.PanelBuilder {
+	return stat.NewPanelBuilder().
+		Title(title).
+		Description(description).
+		Datasource(DatasourceRef).
+		Unit(unit).
+		Height(3).
+		Span(panelSpan).
+		ReduceOptions(common.NewReduceDataOptionsBuilder().
+			Calcs([]string{"sum"}),
+		).
+		Thresholds(dashboard.NewThresholdsConfigBuilder()).
+		GraphMode(common.BigValueGraphModeNone)
 }
 
 func addQuantileTargets(panel *timeseries.PanelBuilder, metricName string) *timeseries.PanelBuilder {

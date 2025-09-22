@@ -31,16 +31,110 @@
       "panels": []
     },
     {
-      "type": "timeseries",
+      "type": "stat",
       "targets": [
         {
-          "expr": "sum(rate(logging_ingest_requests_total{status=\"ok\"}[$__rate_interval])) OR on() vector(0)",
-          "legendFormat": "requests",
+          "expr": "sum(increase(logging_ingest_logs_total{}[$__interval]))",
           "refId": ""
         }
       ],
-      "title": "Ingest requests",
-      "description": "Number of successful log ingestion requests per second",
+      "title": "Total ingested logs",
+      "description": "Total number of logs ingested over time",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "options": {
+        "graphMode": "none",
+        "colorMode": "value",
+        "justifyMode": "auto",
+        "textMode": "auto",
+        "wideLayout": true,
+        "showPercentChange": false,
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ]
+        },
+        "percentChangeColorMode": "standard",
+        "orientation": ""
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(increase(logging_ingest_logs_bytes_total{}[$__interval]))",
+          "refId": ""
+        }
+      ],
+      "title": "Total ingested bytes",
+      "description": "Total size of ingested logs over time",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "options": {
+        "graphMode": "none",
+        "colorMode": "value",
+        "justifyMode": "auto",
+        "textMode": "auto",
+        "wideLayout": true,
+        "showPercentChange": false,
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ]
+        },
+        "percentChangeColorMode": "standard",
+        "orientation": ""
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "decbytes",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(logging_ingest_logs_total{}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "logs",
+          "refId": ""
+        }
+      ],
+      "title": "Ingested logs per second",
+      "description": "Number of logs ingested per second",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -50,7 +144,107 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 1
+        "y": 4
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never",
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(logging_ingest_logs_bytes_total{}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "bytes",
+          "refId": ""
+        }
+      ],
+      "title": "Ingest bytes per second",
+      "description": "Volume of log data ingested per second in bytes",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "calcs": []
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "thresholds": {
+            "mode": "",
+            "steps": []
+          },
+          "custom": {
+            "fillOpacity": 5,
+            "showPoints": "never",
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(logging_ingest_requests_total{status=\"ok\"}[$__rate_interval])) OR on() vector(0)",
+          "legendFormat": "success",
+          "refId": ""
+        }
+      ],
+      "title": "Ingest requests",
+      "description": "Successful ingestion requests per second",
+      "transparent": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 12
       },
       "options": {
         "legend": {
@@ -84,13 +278,13 @@
       "type": "timeseries",
       "targets": [
         {
-          "expr": "sum by(status) (rate(logging_ingest_requests_total{status!=\"ok\"}[$__rate_interval]))",
+          "expr": "sum by(status) (rate(logging_ingest_requests_total{status!=\"ok\"}[$__rate_interval])) OR on() vector(0)",
           "legendFormat": "{{status}}",
           "refId": ""
         }
       ],
-      "title": "Ingest requests errors",
-      "description": "Number of failed log ingestion requests per second, by status code",
+      "title": "Failed ingest requests",
+      "description": "Failed ingestion requests per second, by status",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -100,7 +294,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 1
+        "y": 12
       },
       "options": {
         "legend": {
@@ -169,8 +363,8 @@
           "refId": ""
         }
       ],
-      "title": "Ingest requests duration",
-      "description": "Request processing time quantiles for log ingestion operations",
+      "title": "Ingest requests latency",
+      "description": "Ingestion request latency (quantiles)",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -180,7 +374,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 9
+        "y": 20
       },
       "options": {
         "legend": {
@@ -249,7 +443,7 @@
           "refId": ""
         }
       ],
-      "title": "Logs save lag",
+      "title": "Log save latency",
       "description": "Time delay between receiving a log and saving it to storage, shown as quantiles",
       "transparent": false,
       "datasource": {
@@ -260,7 +454,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 9
+        "y": 20
       },
       "options": {
         "legend": {
@@ -291,106 +485,6 @@
       }
     },
     {
-      "type": "timeseries",
-      "targets": [
-        {
-          "expr": "sum(rate(logging_ingest_logs_total{}[$__rate_interval])) OR on() vector(0)",
-          "legendFormat": "lines",
-          "refId": ""
-        }
-      ],
-      "title": "Ingest logs",
-      "description": "Number of log lines ingested per second",
-      "transparent": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 17
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true,
-          "calcs": []
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "thresholds": {
-            "mode": "",
-            "steps": []
-          },
-          "custom": {
-            "fillOpacity": 5,
-            "showPoints": "never",
-            "axisSoftMin": 0
-          }
-        },
-        "overrides": []
-      }
-    },
-    {
-      "type": "timeseries",
-      "targets": [
-        {
-          "expr": "sum(rate(logging_ingest_logs_bytes_total{}[$__rate_interval])) OR on() vector(0)",
-          "legendFormat": "data",
-          "refId": ""
-        }
-      ],
-      "title": "Ingest bytes",
-      "description": "Volume of log data ingested per second in bytes",
-      "transparent": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 17
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true,
-          "calcs": []
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "binBps",
-          "thresholds": {
-            "mode": "",
-            "steps": []
-          },
-          "custom": {
-            "fillOpacity": 5,
-            "showPoints": "never",
-            "axisSoftMin": 0
-          }
-        },
-        "overrides": []
-      }
-    },
-    {
       "type": "row",
       "collapsed": false,
       "title": "Read",
@@ -398,7 +492,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 28
       },
       "id": 0,
       "panels": []
@@ -408,12 +502,12 @@
       "targets": [
         {
           "expr": "sum(rate(logging_read_requests_total{status=\"ok\"}[$__rate_interval])) OR on() vector(0)",
-          "legendFormat": "requests",
+          "legendFormat": "success",
           "refId": ""
         }
       ],
-      "title": "Read requests",
-      "description": "Number of successful log read/query requests per second",
+      "title": "Successful read requests",
+      "description": "Successful log read requests per second",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -423,7 +517,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "options": {
         "legend": {
@@ -457,13 +551,13 @@
       "type": "timeseries",
       "targets": [
         {
-          "expr": "sum by(status) (rate(logging_read_requests_total{status!=\"ok\"}[$__rate_interval]))",
+          "expr": "sum by(status) (rate(logging_read_requests_total{status!=\"ok\"}[$__rate_interval])) OR on() vector(0)",
           "legendFormat": "{{status}}",
           "refId": ""
         }
       ],
-      "title": "Read requests errors",
-      "description": "Number of failed log read/query requests per second, by status code",
+      "title": "Failed read requests",
+      "description": "Failed read requests per second, by status",
       "transparent": false,
       "datasource": {
         "type": "prometheus",
@@ -473,7 +567,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 26
+        "y": 29
       },
       "options": {
         "legend": {
