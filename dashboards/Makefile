@@ -1,3 +1,3 @@
 generate:
-	@rm *.json
+	@-rm *.json
 	@go run -C generator . -dir ..
