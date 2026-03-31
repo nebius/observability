@@ -72,7 +72,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("stat").
 		Id(0x288).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"instant": true, "legendFormat": "TotalBytesCount", "range": false, "refId": "B", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "useCustomValues": false, "useDashValues": false, "exemplar": false, "expr": "TotalBytesCount{__workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\", filesystem=\"${filesystem}\"}", "hide": false})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"instant": true, "legendFormat": "TotalBytesCount", "range": false, "refId": "B", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "useCustomValues": false, "useDashValues": false, "exemplar": false, "expr": "TotalBytesCount{component=\"storage_fs\", filesystem=\"${filesystem}\"}", "hide": false})}).
 		Title("Size").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 3, W: 5, X: 0, Y: 1}).
@@ -92,7 +92,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("stat").
 		Id(0x1f1).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "expr": "count(MaxRequestBytes{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\", request=\"ReadData\"})", "instant": true, "legendFormat": "__auto", "range": false, "exemplar": false, "hide": false, "refId": "B", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "expr": "count(MaxRequestBytes{filesystem=\"${filesystem}\",  component=\"client_fs\", request=\"ReadData\"})", "instant": true, "legendFormat": "__auto", "range": false, "exemplar": false, "hide": false, "refId": "B", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}})}).
 		Title("Clients Count").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 3, W: 2, X: 5, Y: 1}).
@@ -109,8 +109,8 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("table").
 		Id(0x20c).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "__auto", "range": false, "refId": "A", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "label_set(\n    MaxRequestBytes{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\", request=\"ReadData\"},\n    \"name\", \"MaxRead\"\n)", "hide": false, "instant": true, "useCustomValues": true, "exemplar": false}),
-			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "__auto", "range": false, "editorMode": "code", "hide": false, "instant": true, "refId": "B", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "exemplar": false, "expr": "label_set(\n    MaxRequestBytes{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\", request=\"WriteData\"},\n    \"name\", \"MaxWrite\"\n)"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "__auto", "range": false, "refId": "A", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "label_set(\n    MaxRequestBytes{filesystem=\"${filesystem}\",  component=\"client_fs\", request=\"ReadData\"},\n    \"name\", \"MaxRead\"\n)", "hide": false, "instant": true, "useCustomValues": true, "exemplar": false}),
+			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "__auto", "range": false, "editorMode": "code", "hide": false, "instant": true, "refId": "B", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "exemplar": false, "expr": "label_set(\n    MaxRequestBytes{filesystem=\"${filesystem}\",  component=\"client_fs\", request=\"WriteData\"},\n    \"name\", \"MaxWrite\"\n)"})}).
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 6, W: 17, X: 7, Y: 1}).
 		Height(0x6).
@@ -156,8 +156,8 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("bargauge").
 		Id(0x287).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "instant": true, "legendFormat": "UsedBytesCount", "refId": "A", "useCustomValues": false, "editorMode": "code", "exemplar": false, "expr": "AggregateUsedBytesCount{__workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\", filesystem=\"${filesystem}\"}", "hide": false, "range": false}),
-			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "exemplar": false, "expr": "TotalBytesCount{__workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\", filesystem=\"${filesystem}\"}", "legendFormat": "TotalBytesCount", "range": false, "refId": "B", "useCustomValues": false, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "hide": false, "instant": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "instant": true, "legendFormat": "UsedBytesCount", "refId": "A", "useCustomValues": false, "editorMode": "code", "exemplar": false, "expr": "AggregateUsedBytesCount{ component=\"storage_fs\", filesystem=\"${filesystem}\"}", "hide": false, "range": false}),
+			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "exemplar": false, "expr": "TotalBytesCount{ component=\"storage_fs\", filesystem=\"${filesystem}\"}", "legendFormat": "TotalBytesCount", "range": false, "refId": "B", "useCustomValues": false, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "hide": false, "instant": true})}).
 		Title("Bytes used").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 3, W: 7, X: 0, Y: 4}).
@@ -182,7 +182,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x6).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "{{client}}, {{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "sort_by_label(sum (rate(RequestBytes{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\",instance=~\"$client\"})) by (request, client), \"request\")"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "{{client}}, {{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "sort_by_label(sum (rate(RequestBytes{filesystem=\"${filesystem}\",  component=\"client_fs\",instance=~\"$client\"})) by (request, client), \"request\")"})}).
 		Title("UsedBandwidth (Average)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 0, Y: 8}).
@@ -214,7 +214,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x289).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_by_label(sum (MaxRequestBytes{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\",instance=~\"$client\"}) by (request, client), \"request\")", "legendFormat": "{{client}}, {{request}}", "range": true, "refId": "A"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_by_label(sum (MaxRequestBytes{filesystem=\"${filesystem}\",  component=\"client_fs\",instance=~\"$client\"}) by (request, client), \"request\")", "legendFormat": "{{client}}, {{request}}", "range": true, "refId": "A"})}).
 		Title("UsedBandwidth (Burst)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 6, Y: 8}).
@@ -246,7 +246,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x32).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "{{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_desc(sum (rate(Count{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\",instance=~\"$client\"})) by (request))"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "{{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_desc(sum (rate(Count{filesystem=\"${filesystem}\",  component=\"client_fs\",instance=~\"$client\"})) by (request))"})}).
 		Title("UsedIOPS (Average)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 12, Y: 8}).
@@ -282,7 +282,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x28b).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_by_label(sum (MaxCount{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\",instance=~\"$client\"}) by (request, client), \"request\")", "legendFormat": "{{client}}, {{request}}", "range": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_by_label(sum (MaxCount{filesystem=\"${filesystem}\",  component=\"client_fs\",instance=~\"$client\"}) by (request, client), \"request\")", "legendFormat": "{{client}}, {{request}}", "range": true})}).
 		Title("UsedIOPS (Burst)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 18, Y: 8}).
@@ -314,7 +314,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x240).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "sort_by_label(sum (InProgressBytes{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\",instance=~\"$client\"}) by (request, client), \"request\")", "legendFormat": "{{client}}, {{request}}", "range": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "sort_by_label(sum (InProgressBytes{filesystem=\"${filesystem}\",  component=\"client_fs\",instance=~\"$client\"}) by (request, client), \"request\")", "legendFormat": "{{client}}, {{request}}", "range": true})}).
 		Title("InProgressBytes (Average)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 0, Y: 17}).
@@ -346,7 +346,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x28a).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "{{client}}, {{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_by_label(sum (MaxInProgressBytes{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\",instance=~\"$client\"}) by (request, client), \"request\")"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "{{client}}, {{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_by_label(sum (MaxInProgressBytes{filesystem=\"${filesystem}\",  component=\"client_fs\",instance=~\"$client\"}) by (request, client), \"request\")"})}).
 		Title("InProgressBytes (Burst)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 6, Y: 17}).
@@ -378,7 +378,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x242).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_desc(sum (InProgress{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\",instance=~\"$client\"}) by (request))", "legendFormat": "{{request}}", "range": true, "refId": "A"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sort_desc(sum (InProgress{filesystem=\"${filesystem}\",  component=\"client_fs\",instance=~\"$client\"}) by (request))", "legendFormat": "{{request}}", "range": true, "refId": "A"})}).
 		Title("InProgressRequests (Average)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 12, Y: 17}).
@@ -414,7 +414,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x243).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "expr": "sort_desc(sum (MaxInProgress{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"client_fs\",instance=~\"$client\"}) by (request))", "legendFormat": "{{request}}", "range": true, "refId": "A", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "expr": "sort_desc(sum (MaxInProgress{filesystem=\"${filesystem}\",  component=\"client_fs\",instance=~\"$client\"}) by (request))", "legendFormat": "{{request}}", "range": true, "refId": "A", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}})}).
 		Title("InProgressRequests (Burst)").
 		Description("Note: burst metrics are not additive and may show times higher values than real values").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
@@ -447,7 +447,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x70).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request=\"WriteData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request=\"WriteData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request=\"WriteData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request=\"WriteData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
 		Title("WriteData Latency Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 0, Y: 26}).
@@ -467,7 +467,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x63).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request=\"WriteData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request=\"WriteData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request=\"WriteData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request=\"WriteData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
 		Title("WriteData Execution Latency Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 6, Y: 26}).
@@ -487,7 +487,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x58).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request=\"WriteData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request=\"WriteData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request=\"WriteData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request=\"WriteData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true})}).
 		Title("WriteData Throttler Delay Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 12, Y: 26}).
@@ -507,7 +507,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x3f).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "expr": "round(\n  sum by (le) (\n    rate(Size_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Size\",\n      request=\"WriteData\",\n      instance=~\"$client\",\n    })\n  ), 1\n)", "legendFormat": "{{le}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "format": "heatmap"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "expr": "round(\n  sum by (le) (\n    rate(Size_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Size\",\n      request=\"WriteData\",\n      instance=~\"$client\",\n    })\n  ), 1\n)", "legendFormat": "{{le}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "format": "heatmap"})}).
 		Title("WriteData Size Histogram").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 18, Y: 26}).
@@ -526,7 +526,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x1b6).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request=\"ReadData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request=\"ReadData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request=\"ReadData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request=\"ReadData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
 		Title("Read Latency Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 0, Y: 35}).
@@ -546,7 +546,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x1b7).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request=\"ReadData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or\nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request=\"ReadData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request=\"ReadData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or\nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request=\"ReadData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}"})}).
 		Title("ReadData Execution Latency Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 6, Y: 35}).
@@ -566,7 +566,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x1b8).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request=\"ReadData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request=\"ReadData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request=\"ReadData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request=\"ReadData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true})}).
 		Title("ReadData Throttler Delay Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 12, Y: 35}).
@@ -586,7 +586,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x1b9).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "expr": "round(\n  sum by (le) (\n    rate(Size_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Size\",\n      request=\"ReadData\",\n      instance=~\"$client\",\n    })\n  ), 1\n)", "format": "heatmap", "legendFormat": "{{le}}", "range": true, "editorMode": "code", "refId": "A", "useCustomValues": true, "useDashValues": false})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "expr": "round(\n  sum by (le) (\n    rate(Size_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Size\",\n      request=\"ReadData\",\n      instance=~\"$client\",\n    })\n  ), 1\n)", "format": "heatmap", "legendFormat": "{{le}}", "range": true, "editorMode": "code", "refId": "A", "useCustomValues": true, "useDashValues": false})}).
 		Title("ReadData Size Histogram").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 18, Y: 35}).
@@ -605,7 +605,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x1d3).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request!~\"ReadData|WriteData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request!~\"ReadData|WriteData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request!~\"ReadData|WriteData\",\n      units=\"\",\n      instance=~\"$client\",\n    })\n  )\n) or \nhistogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(Time_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Time\",\n      request!~\"ReadData|WriteData\",\n      units=\"usec\",\n      instance=~\"$client\",\n    })\n  )\n) / 1000", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
 		Title("Control Latency Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 0, Y: 44}).
@@ -625,7 +625,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x1d4).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "useCustomValues": true, "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    })\n  )\n)", "legendFormat": "{{bucket}}"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "useCustomValues": true, "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ExecutionTime_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ExecutionTime\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    })\n  )\n)", "legendFormat": "{{bucket}}"})}).
 		Title("Control Execution Latency Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 6, Y: 44}).
@@ -645,7 +645,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x1d5).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    })\n  )\n)", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "histogram_quantiles(\"q\", 0.5, 0.9, 0.95, 0.99,\n  sum by (le) (\n    increase(ThrottlerDelay_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"ThrottlerDelay\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    })\n  )\n)", "legendFormat": "{{bucket}}", "range": true, "refId": "A", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
 		Title("Control Throttler Delay Quantiles (ms)").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 12, Y: 44}).
@@ -665,7 +665,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x1d6).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "round(\n  sum by (le) (\n    increase(Size_bucket{\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      histogram=\"Size\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    })\n  ), 1\n)", "legendFormat": "{{le}}KB", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "round(\n  sum by (le) (\n    increase(Size_bucket{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      histogram=\"Size\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    })\n  ), 1\n)", "legendFormat": "{{le}}KB", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
 		Title("Control Size Histogram").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 18, Y: 44}).
@@ -685,7 +685,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0xc1).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "sum(\n  rate(\n    {\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      __name__=\"Time\",\n      request=~\"(ReadData|WriteData)\",\n      instance=~\"$client\",\n    }\n  )\n) by(request)\n  / on(request)\nsum(\n  rate(\n    {\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      __name__=~\"(Count|Errors)\",\n      request=~\"(ReadData|WriteData)\",\n      instance=~\"$client\",\n    }\n  )\n) by(request)", "legendFormat": "__auto", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "sum(\n  rate(\n    {\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=\"Time\",\n      request=~\"(ReadData|WriteData)\",\n      instance=~\"$client\",\n    }\n  )\n) by(request)\n  / on(request)\nsum(\n  rate(\n    {\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=~\"(Count|Errors)\",\n      request=~\"(ReadData|WriteData)\",\n      instance=~\"$client\",\n    }\n  )\n) by(request)", "legendFormat": "__auto", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
 		Title("Read/Write average time").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 0, Y: 53}).
@@ -713,8 +713,8 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0xe8).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "max(\n    {\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      __name__=\"MaxTime\",\n      request=\"ReadData\",\n      instance=~\"$client\",\n    }\n  )", "legendFormat": "ReadData", "range": true, "refId": "A", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"}),
-			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "max(\n    {\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      __name__=\"MaxTime\",\n      request=\"WriteData\",\n      instance=~\"$client\",\n    }\n  )", "hide": false, "legendFormat": "WriteData", "range": true, "refId": "B", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "max(\n    {\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=\"MaxTime\",\n      request=\"ReadData\",\n      instance=~\"$client\",\n    }\n  )", "legendFormat": "ReadData", "range": true, "refId": "A", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"}),
+			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "max(\n    {\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=\"MaxTime\",\n      request=\"WriteData\",\n      instance=~\"$client\",\n    }\n  )", "hide": false, "legendFormat": "WriteData", "range": true, "refId": "B", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
 		Title("Read/Write MaxTime").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 6, Y: 53}).
@@ -742,7 +742,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0xfc).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "sum by(request)(\n    increase(Errors{\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      request=~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    }) keep_metric_names\n)", "legendFormat": "{{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "sum by(request)(\n    increase(Errors{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      request=~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    }) keep_metric_names\n)", "legendFormat": "{{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
 		Title("Read/Write TotalErrors").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 12, Y: 53}).
@@ -770,7 +770,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x111).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum by(__name__, request)(\n    increase({\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=~\"Errors_.*\",\n      request=~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    }) keep_metric_names\n)", "legendFormat": "{{__name__}} {{request}}"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum by(__name__, request)(\n    increase({\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=~\"Errors_.*\",\n      request=~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    }) keep_metric_names\n)", "legendFormat": "{{__name__}} {{request}}"})}).
 		Title("Read/Write Errors By Type").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 18, Y: 53}).
@@ -794,7 +794,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x112).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "WITH (\n  commonFilters={\n      filesystem=\"${filesystem}\",\n    __workspace__=\"${project}\",\n    __bucket__=\"nbs\",\n    component=\"client_fs\",\n    instance=~\"$client\",\n  }\n)\nsum by (request)(rate(Time{commonFilters}))\n/\nsum by (request)(rate({commonFilters, __name__=~\"(Count|Errors)\"}))", "legendFormat": "__auto", "range": true, "refId": "A"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "WITH (\n  commonFilters={\n      filesystem=\"${filesystem}\",\n    component=\"client_fs\",\n    instance=~\"$client\",\n  }\n)\nsum by (request)(rate(Time{commonFilters}))\n/\nsum by (request)(rate({commonFilters, __name__=~\"(Count|Errors)\"}))", "legendFormat": "__auto", "range": true, "refId": "A"})}).
 		Title("Control Requests average time").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 0, Y: 62}).
@@ -814,7 +814,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x129).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "max(\n  label_replace(\n    {\n      filesystem=\"${filesystem}\",\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      component=\"client_fs\",\n      __name__=\"MaxTime\",\n      instance=~\"$client\",\n    }, \"request\", \"$1\", \"request\", \"(.*)\"\n  )\n) by (request)\n", "legendFormat": "__auto", "range": true, "refId": "A", "useCustomValues": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "max(\n  label_replace(\n    {\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=\"MaxTime\",\n      instance=~\"$client\",\n    }, \"request\", \"$1\", \"request\", \"(.*)\"\n  )\n) by (request)\n", "legendFormat": "__auto", "range": true, "refId": "A", "useCustomValues": true})}).
 		Title("Control Requests MaxTime").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 6, Y: 62}).
@@ -838,7 +838,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x141).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum by(request)(\n    increase(Errors{\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    }) keep_metric_names\n)", "legendFormat": "{{request}}"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum by(request)(\n    increase(Errors{\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    }) keep_metric_names\n)", "legendFormat": "{{request}}"})}).
 		Title("Control TotalErrors").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 12, Y: 62}).
@@ -861,7 +861,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x15a).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "sum by(__name__, request)(\n    increase({\n      __workspace__=\"${project}\",\n      __bucket__=\"nbs\",\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=~\"Errors_.*\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    }) keep_metric_names\n)", "legendFormat": "{{__name__}}, {{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "sum by(__name__, request)(\n    increase({\n      filesystem=\"${filesystem}\",\n      component=\"client_fs\",\n      __name__=~\"Errors_.*\",\n      request!~\"ReadData|WriteData\",\n      instance=~\"$client\",\n    }) keep_metric_names\n)", "legendFormat": "{{__name__}}, {{request}}", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code"})}).
 		Title("Control Errors By Type").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 9, W: 6, X: 18, Y: 62}).
@@ -888,8 +888,8 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x38).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "TotalBytesCount{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\"}", "legendFormat": "TotalBytesCount", "range": true, "refId": "A", "useCustomValues": true}),
-			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"hide": false, "legendFormat": "UsedBytesCount", "range": true, "editorMode": "code", "expr": "AggregateUsedBytesCount{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\"}", "refId": "B", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "TotalBytesCount{filesystem=\"${filesystem}\",  component=\"storage_fs\"}", "legendFormat": "TotalBytesCount", "range": true, "refId": "A", "useCustomValues": true}),
+			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"hide": false, "legendFormat": "UsedBytesCount", "range": true, "editorMode": "code", "expr": "AggregateUsedBytesCount{filesystem=\"${filesystem}\",  component=\"storage_fs\"}", "refId": "B", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}})}).
 		Title("Used Bytes").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 0, Y: 72}).
@@ -910,7 +910,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x174).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum by (__name__) ({filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\", __name__=~\"Max.*Bandwidth\"})", "legendFormat": "{{__name__}}", "range": true, "refId": "A", "useCustomValues": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum by (__name__) ({filesystem=\"${filesystem}\",  component=\"storage_fs\", __name__=~\"Max.*Bandwidth\"})", "legendFormat": "{{__name__}}", "range": true, "refId": "A", "useCustomValues": true})}).
 		Title("Bandwidth Limits").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 6, Y: 72}).
@@ -932,7 +932,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x175).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "sum by (__name__) ({filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\", __name__=~\"Max.*Iops\"})", "legendFormat": "{{request}}", "range": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "sum by (__name__) ({filesystem=\"${filesystem}\",  component=\"storage_fs\", __name__=~\"Max.*Iops\"})", "legendFormat": "{{request}}", "range": true})}).
 		Title("IOPS Limits").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 12, Y: 72}).
@@ -954,7 +954,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x179).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\", __name__=~\".*SessionsCount\"}", "legendFormat": "{{__name__}}"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"range": true, "refId": "A", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "{filesystem=\"${filesystem}\",  component=\"storage_fs\", __name__=~\".*SessionsCount\"}", "legendFormat": "{{__name__}}"})}).
 		Title("Sessions Count").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 18, Y: 72}).
@@ -974,7 +974,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x17c).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum(UsedLocksCount{filesystem=~\"${filesystem}.*\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\"})", "legendFormat": "UsedLocksCount", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum(UsedLocksCount{filesystem=~\"${filesystem}.*\",  component=\"storage_fs\"})", "legendFormat": "UsedLocksCount", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false})}).
 		Title("Locks Count").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 0, Y: 79}).
@@ -995,8 +995,8 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x17a).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "TotalNodesCount{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\"}", "legendFormat": "TotalNodesCount", "range": true, "refId": "A"}),
-			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "expr": "AggregateUsedNodesCount{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\"}", "hide": false, "range": true, "useDashValues": false, "editorMode": "code", "legendFormat": "UsedNodesCount ", "refId": "B", "useCustomValues": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "TotalNodesCount{filesystem=\"${filesystem}\",  component=\"storage_fs\"}", "legendFormat": "TotalNodesCount", "range": true, "refId": "A"}),
+			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "expr": "AggregateUsedNodesCount{filesystem=\"${filesystem}\",  component=\"storage_fs\"}", "hide": false, "range": true, "useDashValues": false, "editorMode": "code", "legendFormat": "UsedNodesCount ", "refId": "B", "useCustomValues": true})}).
 		Title("Nodes Count").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 6, Y: 79}).
@@ -1017,8 +1017,8 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x176).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "expr": "rate(max(UsedQuota{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\"}))", "legendFormat": "UsedQuota", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}}),
-			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "MaxUsedQuota", "range": true, "refId": "B", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "hide": false, "useDashValues": false, "editorMode": "code", "expr": "max(MaxUsedQuota{filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\"})"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"editorMode": "code", "expr": "rate(max(UsedQuota{filesystem=\"${filesystem}\",  component=\"storage_fs\"}))", "legendFormat": "UsedQuota", "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}}),
+			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"legendFormat": "MaxUsedQuota", "range": true, "refId": "B", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "hide": false, "useDashValues": false, "editorMode": "code", "expr": "max(MaxUsedQuota{filesystem=\"${filesystem}\",  component=\"storage_fs\"})"})}).
 		Title("UsedQuota").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 12, Y: 79}).
@@ -1040,8 +1040,8 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x50).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"exemplar": false, "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "editorMode": "code", "expr": "sum(rate(\n  ReadAheadCacheHitCount{\n    filesystem=~\"^${filesystem}.*\",\n    __workspace__=\"${project}\",\n    __bucket__=\"nbs\",\n    component=\"storage_fs\"\n  }\n))", "instant": false, "legendFormat": "HitCount", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}}),
-			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum(ReadAheadCacheNodeCount{\n  filesystem=~\"${filesystem}.*\",\n  __workspace__=\"${project}\",\n  __bucket__=\"nbs\",\n  component=\"storage_fs\"\n})", "format": "time_series", "hide": false, "range": true, "refId": "B", "exemplar": false, "instant": false, "legendFormat": "NodeCount", "useCustomValues": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"exemplar": false, "range": true, "refId": "A", "useCustomValues": true, "useDashValues": false, "editorMode": "code", "expr": "sum(rate(\n  ReadAheadCacheHitCount{\n    filesystem=~\"^${filesystem}.*\",\n    component=\"storage_fs\"\n  }\n))", "instant": false, "legendFormat": "HitCount", "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}}),
+			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum(ReadAheadCacheNodeCount{\n  filesystem=~\"${filesystem}.*\",\n  component=\"storage_fs\"\n})", "format": "time_series", "hide": false, "range": true, "refId": "B", "exemplar": false, "instant": false, "legendFormat": "NodeCount", "useCustomValues": true})}).
 		Title("ReadAheadCache").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 18, Y: 79}).
@@ -1069,7 +1069,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x177).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "rate(sum by (__name__) ({filesystem=\"${filesystem}\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\", __name__=~\"(RejectedRequests|PostponedRequests)\"}) ) keep_metric_names ", "legendFormat": "{{request}}", "range": true})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"refId": "A", "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"uid": "${datasource}", "type": "victoriametrics-datasource"}, "editorMode": "code", "expr": "rate(sum by (__name__) ({filesystem=\"${filesystem}\",  component=\"storage_fs\", __name__=~\"(RejectedRequests|PostponedRequests)\"}) ) keep_metric_names ", "legendFormat": "{{request}}", "range": true})}).
 		Title("Requests in Throttler").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 0, Y: 86}).
@@ -1091,8 +1091,8 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x265).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "instant": false, "range": true, "refId": "A", "editorMode": "code", "exemplar": false, "expr": "sum(rate(\n  NodeIndexCacheHitCount{\n    filesystem=~\"^${filesystem}.*\",\n    __workspace__=\"${project}\",\n    __bucket__=\"nbs\",\n    component=\"storage_fs\"\n  }\n))", "legendFormat": "HitCount", "useCustomValues": true, "useDashValues": false}),
-			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"format": "time_series", "hide": false, "instant": false, "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "exemplar": false, "expr": "sum(NodeIndexCacheNodeCount{\n  filesystem=~\"${filesystem}.*\",\n  __workspace__=\"${project}\",\n  __bucket__=\"nbs\",\n  component=\"storage_fs\"\n})", "legendFormat": "NodeCount", "range": true, "refId": "B", "editorMode": "code"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "instant": false, "range": true, "refId": "A", "editorMode": "code", "exemplar": false, "expr": "sum(rate(\n  NodeIndexCacheHitCount{\n    filesystem=~\"^${filesystem}.*\",\n    component=\"storage_fs\"\n  }\n))", "legendFormat": "HitCount", "useCustomValues": true, "useDashValues": false}),
+			variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"format": "time_series", "hide": false, "instant": false, "useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "exemplar": false, "expr": "sum(NodeIndexCacheNodeCount{\n  filesystem=~\"${filesystem}.*\",\n  component=\"storage_fs\"\n})", "legendFormat": "NodeCount", "range": true, "refId": "B", "editorMode": "code"})}).
 		Title("NodeIndexCache").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 6, Y: 86}).
@@ -1120,7 +1120,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x17b).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum({filesystem=~\"${filesystem}.*\", __workspace__=\"${project}\", __bucket__=\"nbs\", component=\"storage_fs\", __name__=~\"UsedHandlesCount\"})", "legendFormat": "UsedHandlesCount", "range": true, "refId": "A"})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"useCustomValues": true, "useDashValues": false, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}, "editorMode": "code", "expr": "sum({filesystem=~\"${filesystem}.*\",  component=\"storage_fs\", __name__=~\"UsedHandlesCount\"})", "legendFormat": "UsedHandlesCount", "range": true, "refId": "A"})}).
 		Title("Handles Count").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 12, Y: 86}).
@@ -1141,7 +1141,7 @@ var NebiusSharedFilesystemExtended = dashboard.NewDashboardBuilder("Nebius Share
 		Type("timeseries").
 		Id(0x266).
 		PluginVersion("12.2.0").
-		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "sum by(__name__)(rate(\n  {\n    filesystem=~\"^${filesystem}.*\",\n    __workspace__=\"${project}\",\n    __bucket__=\"nbs\",\n    component=\"storage_fs\",\n    __name__=~\"InMemoryIndexStateROCacheHitCount|InMemoryIndexStateROCacheMissCount|InMemoryIndexStateRWCount\"\n  } \n)keep_metric_names)", "legendFormat": "{{__name__}}", "range": true, "useDashValues": false, "editorMode": "code", "exemplar": false, "instant": false, "refId": "A", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}})}).
+		Targets([]cog.Builder[variants.Dataquery]{variants.NewUnknownDataqueryBuilderFromObject(variants.UnknownDataquery{"expr": "sum by(__name__)(rate(\n  {\n    filesystem=~\"^${filesystem}.*\",\n    component=\"storage_fs\",\n    __name__=~\"InMemoryIndexStateROCacheHitCount|InMemoryIndexStateROCacheMissCount|InMemoryIndexStateRWCount\"\n  } \n)keep_metric_names)", "legendFormat": "{{__name__}}", "range": true, "useDashValues": false, "editorMode": "code", "exemplar": false, "instant": false, "refId": "A", "useCustomValues": true, "datasource": map[string]interface{}{"type": "victoriametrics-datasource", "uid": "${datasource}"}})}).
 		Title("InMemoryIndexCache Hit").
 		Datasource(dashboard.DataSourceRef{Type: cog.ToPtr[string]("victoriametrics-datasource"), Uid: cog.ToPtr[string]("${datasource}")}).
 		GridPos(dashboard.GridPos{H: 7, W: 6, X: 18, Y: 86}).
