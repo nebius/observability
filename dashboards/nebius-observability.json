@@ -15,7 +15,7 @@
   },
   "fiscalYearStartMonth": 0,
   "refresh": "1m",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "panels": [
     {
       "type": "row",
@@ -61,6 +61,7 @@
         "x": 0,
         "y": 1
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -152,6 +153,7 @@
         "x": 12,
         "y": 1
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -583,6 +585,7 @@
         "x": 0,
         "y": 9
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -662,6 +665,7 @@
         "x": 12,
         "y": 9
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -1086,6 +1090,7 @@
         "x": 0,
         "y": 17
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "rowsps"
@@ -1151,6 +1156,7 @@
         "x": 0,
         "y": 26
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -1203,6 +1209,7 @@
         "x": 12,
         "y": 26
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -1350,6 +1357,7 @@
         "x": 0,
         "y": 34
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -1402,6 +1410,7 @@
         "x": 12,
         "y": 34
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "reqps"
@@ -1549,6 +1558,7 @@
         "x": 0,
         "y": 42
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "short"
@@ -1601,6 +1611,7 @@
         "x": 12,
         "y": 42
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "binBps"
@@ -1681,6 +1692,7 @@
         "x": 0,
         "y": 50
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "s"
@@ -1761,6 +1773,7 @@
         "x": 12,
         "y": 50
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "s"
@@ -1820,6 +1833,7 @@
       "url": "https://docs.nebius.com/observability",
       "tags": [],
       "asDropdown": false,
+      "placement": "inControlsMenu",
       "targetBlank": true,
       "includeVars": false,
       "keepTime": false
@@ -1832,6 +1846,7 @@
       "url": "https://github.com/nebius/observability",
       "tags": [],
       "asDropdown": false,
+      "placement": "inControlsMenu",
       "targetBlank": true,
       "includeVars": false,
       "keepTime": false

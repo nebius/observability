@@ -15,7 +15,7 @@
   },
   "fiscalYearStartMonth": 0,
   "refresh": "1m",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "panels": [
     {
       "type": "timeseries",
@@ -24,36 +24,31 @@
           "expr": "histogram_quantile(0.5, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p50",
-          "refId": ""
+          "legendFormat": "p50"
         },
         {
           "expr": "histogram_quantile(0.75, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p75",
-          "refId": ""
+          "legendFormat": "p75"
         },
         {
           "expr": "histogram_quantile(0.90, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p90",
-          "refId": ""
+          "legendFormat": "p90"
         },
         {
           "expr": "histogram_quantile(0.95, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p95",
-          "refId": ""
+          "legendFormat": "p95"
         },
         {
           "expr": "histogram_quantile(0.99, sum by(le) (rate(filestore_read_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p99",
-          "refId": ""
+          "legendFormat": "p99"
         }
       ],
       "title": "FS read latency (quantiles)",
@@ -69,6 +64,7 @@
         "x": 0,
         "y": 0
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -103,43 +99,37 @@
           "expr": "histogram_quantile(0.1, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p10",
-          "refId": ""
+          "legendFormat": "p10"
         },
         {
           "expr": "histogram_quantile(0.5, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p50",
-          "refId": ""
+          "legendFormat": "p50"
         },
         {
           "expr": "histogram_quantile(0.75, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p75",
-          "refId": ""
+          "legendFormat": "p75"
         },
         {
           "expr": "histogram_quantile(0.90, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p90",
-          "refId": ""
+          "legendFormat": "p90"
         },
         {
           "expr": "histogram_quantile(0.95, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p95",
-          "refId": ""
+          "legendFormat": "p95"
         },
         {
           "expr": "histogram_quantile(0.99, sum by(le) (rate(filestore_write_latency_bucket{filestore=\"$filestore\"}[$__rate_interval])))",
           "instant": false,
           "range": true,
-          "legendFormat": "p99",
-          "refId": ""
+          "legendFormat": "p99"
         }
       ],
       "title": "FS write latency (quantiles)",
@@ -155,6 +145,7 @@
         "x": 12,
         "y": 0
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -189,15 +180,13 @@
           "expr": "sum(rate(filestore_read_ops{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Read",
-          "refId": ""
+          "legendFormat": "Read"
         },
         {
           "expr": "sum(filestore_read_ops_burst{filestore=\"$filestore\"})",
           "instant": false,
           "range": true,
-          "legendFormat": "Read Burst",
-          "refId": ""
+          "legendFormat": "Read Burst"
         }
       ],
       "title": "FS read operations",
@@ -213,6 +202,7 @@
         "x": 0,
         "y": 9
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -247,15 +237,13 @@
           "expr": "sum(rate(filestore_write_ops{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Write",
-          "refId": ""
+          "legendFormat": "Write"
         },
         {
           "expr": "sum(filestore_write_ops_burst{filestore=\"$filestore\"})",
           "instant": false,
           "range": true,
-          "legendFormat": "Write Burst",
-          "refId": ""
+          "legendFormat": "Write Burst"
         }
       ],
       "title": "FS write operations",
@@ -271,6 +259,7 @@
         "x": 12,
         "y": 9
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -305,15 +294,13 @@
           "expr": "sum(rate(filestore_read_bytes{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Read",
-          "refId": ""
+          "legendFormat": "Read"
         },
         {
           "expr": "sum(filestore_read_bytes_burst{filestore=\"$filestore\"})",
           "instant": false,
           "range": true,
-          "legendFormat": "Read Burst",
-          "refId": ""
+          "legendFormat": "Read Burst"
         }
       ],
       "title": "FS read bytes",
@@ -329,6 +316,7 @@
         "x": 0,
         "y": 18
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -363,15 +351,13 @@
           "expr": "sum(rate(filestore_write_bytes{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Write",
-          "refId": ""
+          "legendFormat": "Write"
         },
         {
           "expr": "sum(filestore_write_bytes_burst{filestore=\"$filestore\"})",
           "instant": false,
           "range": true,
-          "legendFormat": "Write Burst",
-          "refId": ""
+          "legendFormat": "Write Burst"
         }
       ],
       "title": "FS write bytes",
@@ -387,6 +373,7 @@
         "x": 12,
         "y": 18
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -421,8 +408,7 @@
           "expr": "sum(rate(filestore_read_errors{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Read",
-          "refId": ""
+          "legendFormat": "Read"
         }
       ],
       "title": "FS read errors",
@@ -438,6 +424,7 @@
         "x": 0,
         "y": 27
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "thresholds": {
@@ -459,8 +446,7 @@
           "expr": "sum(rate(filestore_write_errors{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Write",
-          "refId": ""
+          "legendFormat": "Write"
         }
       ],
       "title": "FS write errors",
@@ -476,6 +462,7 @@
         "x": 12,
         "y": 27
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "thresholds": {
@@ -497,8 +484,7 @@
           "expr": "sum(rate(filestore_index_ops{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Ops",
-          "refId": ""
+          "legendFormat": "Ops"
         }
       ],
       "title": "FS index operations",
@@ -514,6 +500,7 @@
         "x": 0,
         "y": 36
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "thresholds": {
@@ -535,8 +522,7 @@
           "expr": "sum(rate(filestore_index_errors{filestore=\"$filestore\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Errors",
-          "refId": ""
+          "legendFormat": "Errors"
         }
       ],
       "title": "FS index errors",
@@ -552,6 +538,7 @@
         "x": 12,
         "y": 36
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "thresholds": {
@@ -613,6 +600,7 @@
       "url": "https://docs.nebius.com/observability",
       "tags": [],
       "asDropdown": false,
+      "placement": "inControlsMenu",
       "targetBlank": true,
       "includeVars": false,
       "keepTime": false
@@ -625,6 +613,7 @@
       "url": "https://github.com/nebius/observability",
       "tags": [],
       "asDropdown": false,
+      "placement": "inControlsMenu",
       "targetBlank": true,
       "includeVars": false,
       "keepTime": false

@@ -16,7 +16,7 @@
   },
   "fiscalYearStartMonth": 0,
   "refresh": "1m",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "panels": [
     {
       "type": "timeseries",
@@ -25,22 +25,19 @@
           "expr": "node_load1{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "1min",
-          "refId": ""
+          "legendFormat": "1min"
         },
         {
           "expr": "node_load5{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "5min",
-          "refId": ""
+          "legendFormat": "5min"
         },
         {
           "expr": "node_load15{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "15min",
-          "refId": ""
+          "legendFormat": "15min"
         }
       ],
       "title": "Host Load",
@@ -56,6 +53,7 @@
         "x": 0,
         "y": 0
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -91,8 +89,7 @@
           "expr": "DCGM_FI_DEV_POWER_USAGE{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "{{uuid}}",
-          "refId": ""
+          "legendFormat": "{{uuid}}"
         }
       ],
       "title": "GPU Power Usage",
@@ -108,6 +105,7 @@
         "x": 6,
         "y": 0
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -145,8 +143,7 @@
         {
           "expr": "sum(DCGM_FI_DEV_POWER_USAGE{instance_id=\"$hostname\"})",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "GPU Total Power",
@@ -162,6 +159,7 @@
         "x": 14,
         "y": 0
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "watt",
@@ -206,8 +204,7 @@
           "expr": "sum(rate(DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL{instance_id=\"$hostname\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "Total",
-          "refId": ""
+          "legendFormat": "Total"
         }
       ],
       "title": "NVLINK Bandwidth",
@@ -223,6 +220,7 @@
         "x": 17,
         "y": 0
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -259,29 +257,25 @@
           "expr": "node_memory_MemTotal_bytes{instance_id=\"$hostname\"} - node_memory_MemFree_bytes{instance_id=\"$hostname\"} - node_memory_Buffers_bytes{instance_id=\"$hostname\"} - node_memory_Cached_bytes{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Used",
-          "refId": ""
+          "legendFormat": "Used"
         },
         {
           "expr": "node_memory_Buffers_bytes{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Buffered",
-          "refId": ""
+          "legendFormat": "Buffered"
         },
         {
           "expr": "node_memory_Cached_bytes{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Cached",
-          "refId": ""
+          "legendFormat": "Cached"
         },
         {
           "expr": "node_memory_MemFree_bytes{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Free",
-          "refId": ""
+          "legendFormat": "Free"
         }
       ],
       "title": "System Memory Usage",
@@ -297,6 +291,7 @@
         "x": 0,
         "y": 5
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -337,8 +332,7 @@
           "expr": "DCGM_FI_DEV_GPU_TEMP{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "{{uuid}}",
-          "refId": ""
+          "legendFormat": "{{uuid}}"
         }
       ],
       "title": "GPU Temperature",
@@ -354,6 +348,7 @@
         "x": 6,
         "y": 5
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -387,8 +382,7 @@
         {
           "expr": "avg(DCGM_FI_DEV_GPU_TEMP{instance_id=\"$hostname\"})",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "GPU Avg. Temperature",
@@ -404,6 +398,7 @@
         "x": 14,
         "y": 5
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "celsius",
@@ -448,15 +443,13 @@
           "expr": "irate(DCGM_FI_PROF_PCIE_TX_BYTES{instance_id=\"$hostname\"}[$__interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "{{uuid}} Tx",
-          "refId": ""
+          "legendFormat": "{{uuid}} Tx"
         },
         {
           "expr": "irate(DCGM_FI_PROF_PCIE_RX_BYTES{instance_id=\"$hostname\"}[$__interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "{{uuid}} Rx",
-          "refId": ""
+          "legendFormat": "{{uuid}} Rx"
         }
       ],
       "title": "PCIe Throughput",
@@ -472,6 +465,7 @@
         "x": 17,
         "y": 5
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -520,8 +514,7 @@
         {
           "expr": "avg((node_filesystem_size_bytes{instance_id=\"$hostname\", device!=\"rootfs\"} - node_filesystem_avail_bytes{instance_id=\"$hostname\", device!=\"rootfs\"}) / node_filesystem_size_bytes{instance_id=\"$hostname\", device!=\"rootfs\"})",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "Disk Usage",
@@ -537,6 +530,7 @@
         "x": 0,
         "y": 10
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "percentunit",
@@ -580,8 +574,7 @@
         {
           "expr": "(node_memory_MemTotal_bytes{instance_id=\"$hostname\"} - node_memory_MemFree_bytes{instance_id=\"$hostname\"} - node_memory_Buffers_bytes{instance_id=\"$hostname\"} - node_memory_Cached_bytes{instance_id=\"$hostname\"}) / node_memory_MemTotal_bytes{instance_id=\"$hostname\"}",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "Memory Usage",
@@ -597,6 +590,7 @@
         "x": 3,
         "y": 10
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "percentunit",
@@ -641,8 +635,7 @@
           "expr": "DCGM_FI_DEV_GPU_UTIL{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "{{uuid}}",
-          "refId": ""
+          "legendFormat": "{{uuid}}"
         }
       ],
       "title": "GPU Utilization",
@@ -658,6 +651,7 @@
         "x": 6,
         "y": 10
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -691,8 +685,7 @@
         {
           "expr": "avg(DCGM_FI_DEV_GPU_UTIL{instance_id=\"$hostname\"})",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "GPU Total Utilization",
@@ -708,6 +701,7 @@
         "x": 14,
         "y": 10
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "percent",
@@ -752,15 +746,13 @@
           "expr": "irate(node_network_receive_bytes_total{instance_id=\"$hostname\"}[$__interval]) or irate(node_network_receive_bytes{instance_id=\"$hostname\"}[$__interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "{{device}} In",
-          "refId": ""
+          "legendFormat": "{{device}} In"
         },
         {
           "expr": "irate(node_network_transmit_bytes_total{instance_id=\"$hostname\"}[$__interval]) or irate(node_network_transmit_bytes{instance_id=\"$hostname\"}[$__interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "{{device}} Out",
-          "refId": ""
+          "legendFormat": "{{device}} Out"
         }
       ],
       "title": "Network Throughput",
@@ -776,6 +768,7 @@
         "x": 17,
         "y": 10
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -826,15 +819,13 @@
           "expr": "irate(node_disk_written_bytes_total{instance_id=\"$hostname\"}[$__interval]) or irate(node_disk_sectors_written{instance_id=\"$hostname\"}[$__interval]) * 512",
           "instant": false,
           "range": true,
-          "legendFormat": "{{device}} write",
-          "refId": ""
+          "legendFormat": "{{device}} write"
         },
         {
           "expr": "irate(node_disk_read_bytes_total{instance_id=\"$hostname\"}[$__interval]) or irate(node_disk_sectors_read{instance_id=\"$hostname\"}[$__interval]) * 512",
           "instant": false,
           "range": true,
-          "legendFormat": "{{device}} read",
-          "refId": ""
+          "legendFormat": "{{device}} read"
         }
       ],
       "title": "Disk Throughput",
@@ -850,6 +841,7 @@
         "x": 0,
         "y": 15
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -885,8 +877,7 @@
           "expr": "DCGM_FI_DEV_MEM_COPY_UTIL{instance_id=\"$hostname\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "{{uuid}}",
-          "refId": ""
+          "legendFormat": "{{uuid}}"
         }
       ],
       "title": "GPU Memory Copy Utilization",
@@ -902,6 +893,7 @@
         "x": 6,
         "y": 15
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -935,8 +927,7 @@
         {
           "expr": "avg(DCGM_FI_DEV_MEM_COPY_UTIL{instance_id=\"$hostname\"})",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "GPU Total Memory Copy Utilization",
@@ -952,6 +943,7 @@
         "x": 14,
         "y": 15
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "percent",
@@ -996,15 +988,13 @@
           "expr": "irate(node_infiniband_port_data_transmitted_bytes_total{instance_id=\"$hostname\", device!~\"hfi.+\"}[$__interval]) or irate(node_infiniband_port_data_transmitted_bytes_total{instance_id=\"$hostname\", device=~\"hfi.+\"}[$__interval]) * 2",
           "instant": false,
           "range": true,
-          "legendFormat": "{{device}} Out",
-          "refId": ""
+          "legendFormat": "{{device}} Out"
         },
         {
           "expr": "irate(node_infiniband_port_data_received_bytes_total{instance_id=\"$hostname\", device!~\"hfi.+\"}[$__interval]) or irate(node_infiniband_port_data_received_bytes_total{instance_id=\"$hostname\", device=~\"hfi.+\"}[$__interval]) * 2",
           "instant": false,
           "range": true,
-          "legendFormat": "{{device}} In",
-          "refId": ""
+          "legendFormat": "{{device}} In"
         }
       ],
       "title": "InfiniBand Throughput",
@@ -1020,6 +1010,7 @@
         "x": 17,
         "y": 15
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -1069,8 +1060,7 @@
           "expr": "node_uname_info{instance_id=\"$hostname\"}",
           "instant": true,
           "range": false,
-          "format": "table",
-          "refId": ""
+          "format": "table"
         }
       ],
       "title": "Compute instance name",
@@ -1086,6 +1076,7 @@
         "x": 0,
         "y": 20
       },
+      "repeatDirection": "h",
       "options": {
         "graphMode": "area",
         "colorMode": "none",
@@ -1130,8 +1121,7 @@
           "expr": "node_uname_info{instance_id=\"$hostname\"}",
           "instant": true,
           "range": false,
-          "format": "table",
-          "refId": ""
+          "format": "table"
         }
       ],
       "title": "Kernel",
@@ -1147,6 +1137,7 @@
         "x": 3,
         "y": 20
       },
+      "repeatDirection": "h",
       "options": {
         "graphMode": "area",
         "colorMode": "none",
@@ -1191,8 +1182,7 @@
           "expr": "DCGM_FI_DEV_FB_USED{instance_id=\"$hostname\"} / (DCGM_FI_DEV_FB_USED{instance_id=\"$hostname\"} + DCGM_FI_DEV_FB_FREE{instance_id=\"$hostname\"})",
           "instant": false,
           "range": true,
-          "legendFormat": "{{uuid}}",
-          "refId": ""
+          "legendFormat": "{{uuid}}"
         }
       ],
       "title": "GPU Memory Usage",
@@ -1208,6 +1198,7 @@
         "x": 6,
         "y": 20
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -1241,8 +1232,7 @@
         {
           "expr": "avg(DCGM_FI_DEV_POWER_USAGE{instance_id=\"$hostname\"})",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "GPU Power Draw",
@@ -1258,6 +1248,7 @@
         "x": 14,
         "y": 20
       },
+      "repeatDirection": "h",
       "fieldConfig": {
         "defaults": {
           "unit": "watt",
@@ -1302,8 +1293,7 @@
           "expr": "DCGM_FI_DEV_POWER_USAGE{instance_id=\"$hostname\", uuid=~\"GPU-.*\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "{{uuid}}",
-          "refId": ""
+          "legendFormat": "{{uuid}}"
         }
       ],
       "title": "GPU Power Draw",
@@ -1319,6 +1309,7 @@
         "x": 17,
         "y": 20
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -1353,8 +1344,7 @@
         {
           "expr": "avg(DCGM_FI_DEV_SM_CLOCK{instance_id=\"$hostname\"}) * 1000000",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "GPU SM Clocks",
@@ -1370,6 +1360,7 @@
         "x": 0,
         "y": 25
       },
+      "repeatDirection": "h",
       "options": {
         "graphMode": "area",
         "colorMode": "none",
@@ -1411,8 +1402,7 @@
         {
           "expr": "avg(DCGM_FI_DEV_MEM_CLOCK{instance_id=\"$hostname\"}) * 1000000",
           "instant": true,
-          "range": false,
-          "refId": ""
+          "range": false
         }
       ],
       "title": "GPU Memory Clocks",
@@ -1428,6 +1418,7 @@
         "x": 3,
         "y": 25
       },
+      "repeatDirection": "h",
       "options": {
         "graphMode": "area",
         "colorMode": "none",
@@ -1511,6 +1502,7 @@
       "url": "https://docs.nebius.com/observability",
       "tags": [],
       "asDropdown": false,
+      "placement": "inControlsMenu",
       "targetBlank": true,
       "includeVars": false,
       "keepTime": false
@@ -1523,6 +1515,7 @@
       "url": "https://github.com/nebius/observability",
       "tags": [],
       "asDropdown": false,
+      "placement": "inControlsMenu",
       "targetBlank": true,
       "includeVars": false,
       "keepTime": false

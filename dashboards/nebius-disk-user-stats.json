@@ -16,7 +16,7 @@
   },
   "fiscalYearStartMonth": 0,
   "refresh": "1m",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "panels": [
     {
       "type": "timeseries",
@@ -25,36 +25,31 @@
           "expr": "histogram_quantile(0.5, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p50",
-          "refId": ""
+          "legendFormat": "p50"
         },
         {
           "expr": "histogram_quantile(0.75, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p75",
-          "refId": ""
+          "legendFormat": "p75"
         },
         {
           "expr": "histogram_quantile(0.90, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p90",
-          "refId": ""
+          "legendFormat": "p90"
         },
         {
           "expr": "histogram_quantile(0.95, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p95",
-          "refId": ""
+          "legendFormat": "p95"
         },
         {
           "expr": "histogram_quantile(0.99, rate(disk_read_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p99",
-          "refId": ""
+          "legendFormat": "p99"
         }
       ],
       "title": "Disk read latency (quantiles)",
@@ -70,6 +65,7 @@
         "x": 0,
         "y": 0
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -104,36 +100,31 @@
           "expr": "histogram_quantile(0.5, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p50",
-          "refId": ""
+          "legendFormat": "p50"
         },
         {
           "expr": "histogram_quantile(0.75, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p75",
-          "refId": ""
+          "legendFormat": "p75"
         },
         {
           "expr": "histogram_quantile(0.90, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p90",
-          "refId": ""
+          "legendFormat": "p90"
         },
         {
           "expr": "histogram_quantile(0.95, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p95",
-          "refId": ""
+          "legendFormat": "p95"
         },
         {
           "expr": "histogram_quantile(0.99, rate(disk_write_latency_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p99",
-          "refId": ""
+          "legendFormat": "p99"
         }
       ],
       "title": "Disk write latency (quantiles)",
@@ -149,6 +140,7 @@
         "x": 12,
         "y": 0
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -183,36 +175,31 @@
           "expr": "histogram_quantile(0.5, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p50",
-          "refId": ""
+          "legendFormat": "p50"
         },
         {
           "expr": "histogram_quantile(0.75, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p75",
-          "refId": ""
+          "legendFormat": "p75"
         },
         {
           "expr": "histogram_quantile(0.90, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p90",
-          "refId": ""
+          "legendFormat": "p90"
         },
         {
           "expr": "histogram_quantile(0.95, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p95",
-          "refId": ""
+          "legendFormat": "p95"
         },
         {
           "expr": "histogram_quantile(0.99, rate(disk_read_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p99",
-          "refId": ""
+          "legendFormat": "p99"
         }
       ],
       "title": "Disk read throttler latency (quantiles)",
@@ -228,6 +215,7 @@
         "x": 0,
         "y": 9
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -262,36 +250,31 @@
           "expr": "histogram_quantile(0.5, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p50",
-          "refId": ""
+          "legendFormat": "p50"
         },
         {
           "expr": "histogram_quantile(0.75, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p75",
-          "refId": ""
+          "legendFormat": "p75"
         },
         {
           "expr": "histogram_quantile(0.90, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p90",
-          "refId": ""
+          "legendFormat": "p90"
         },
         {
           "expr": "histogram_quantile(0.95, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p95",
-          "refId": ""
+          "legendFormat": "p95"
         },
         {
           "expr": "histogram_quantile(0.99, rate(disk_write_throttler_delay_bucket{disk=\"$disk\"}[$__rate_interval]))",
           "instant": false,
           "range": true,
-          "legendFormat": "p99",
-          "refId": ""
+          "legendFormat": "p99"
         }
       ],
       "title": "Disk write throttler latency (quantiles)",
@@ -307,6 +290,7 @@
         "x": 12,
         "y": 9
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -341,15 +325,13 @@
           "expr": "rate(disk_read_ops{disk=\"$disk\"}[$__rate_interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "Read",
-          "refId": ""
+          "legendFormat": "Read"
         },
         {
           "expr": "disk_read_ops_burst{disk=\"$disk\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Read Burst",
-          "refId": ""
+          "legendFormat": "Read Burst"
         }
       ],
       "title": "Disk read operations",
@@ -365,6 +347,7 @@
         "x": 0,
         "y": 18
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -399,15 +382,13 @@
           "expr": "rate(disk_write_ops{disk=\"$disk\"}[$__rate_interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "Write",
-          "refId": ""
+          "legendFormat": "Write"
         },
         {
           "expr": "disk_write_ops_burst{disk=\"$disk\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Write Burst",
-          "refId": ""
+          "legendFormat": "Write Burst"
         }
       ],
       "title": "Disk write operations",
@@ -423,6 +404,7 @@
         "x": 12,
         "y": 18
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -457,15 +439,13 @@
           "expr": "rate(disk_read_bytes{disk=\"$disk\"}[$__rate_interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "Read",
-          "refId": ""
+          "legendFormat": "Read"
         },
         {
           "expr": "disk_read_bytes_burst{disk=\"$disk\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Read Burst",
-          "refId": ""
+          "legendFormat": "Read Burst"
         }
       ],
       "title": "Disk read bytes",
@@ -481,6 +461,7 @@
         "x": 0,
         "y": 27
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -515,15 +496,13 @@
           "expr": "rate(disk_write_bytes{disk=\"$disk\"}[$__rate_interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "Write",
-          "refId": ""
+          "legendFormat": "Write"
         },
         {
           "expr": "disk_write_bytes_burst{disk=\"$disk\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Write Burst",
-          "refId": ""
+          "legendFormat": "Write Burst"
         }
       ],
       "title": "Disk write bytes",
@@ -539,6 +518,7 @@
         "x": 12,
         "y": 27
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -573,15 +553,13 @@
           "expr": "rate(disk_io_quota_utilization_percentage{disk=\"$disk\"}[$__rate_interval])",
           "instant": false,
           "range": true,
-          "legendFormat": "Quota",
-          "refId": ""
+          "legendFormat": "Quota"
         },
         {
           "expr": "disk_io_quota_utilization_percentage_burst{disk=\"$disk\"}",
           "instant": false,
           "range": true,
-          "legendFormat": "Quota Burst",
-          "refId": ""
+          "legendFormat": "Quota Burst"
         }
       ],
       "title": "Disk used quota",
@@ -597,6 +575,7 @@
         "x": 0,
         "y": 36
       },
+      "repeatDirection": "h",
       "options": {
         "legend": {
           "displayMode": "list",
@@ -671,6 +650,7 @@
       "url": "https://docs.nebius.com/observability",
       "tags": [],
       "asDropdown": false,
+      "placement": "inControlsMenu",
       "targetBlank": true,
       "includeVars": false,
       "keepTime": false
@@ -683,6 +663,7 @@
       "url": "https://github.com/nebius/observability",
       "tags": [],
       "asDropdown": false,
+      "placement": "inControlsMenu",
       "targetBlank": true,
       "includeVars": false,
       "keepTime": false
